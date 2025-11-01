@@ -13,15 +13,16 @@ import spring.telegrambot.drinkWaterMeter.service.TelegramWoterService;
 public class TelegramController {
 
     private final TelegramWoterService telegramService;
+
+
     public TelegramController(TelegramWoterService telegramService) {
         this.telegramService = telegramService;
     }
 
-
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public void handle(HttpMessageNotReadableException e) {
-        System.out.println("400 Bad Request from Telegram : "  + e.getMessage());
+        telegramService.logger().logException("400 Bad Request from Telegram : " , e);
     }
 
 
