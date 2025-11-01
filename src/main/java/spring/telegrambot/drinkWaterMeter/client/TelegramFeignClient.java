@@ -8,8 +8,7 @@ import spring.telegrambot.drinkWaterMeter.data.request.Request;
 import spring.telegrambot.drinkWaterMeter.data.webhook.SetWebhookRequest;
 
 
-//@FeignClient(name = "telegram", url = "${telegrambot.urlToken}")
-@FeignClient(name = "telegram", url = "${telegram.urlToken}")
+@FeignClient(name = "telegram", url = "${telegrambot.urlToken}")
 public interface TelegramFeignClient {
 
         @PostMapping("/setWebhook")

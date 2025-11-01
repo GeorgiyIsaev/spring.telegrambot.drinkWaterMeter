@@ -1,11 +1,10 @@
 package spring.telegrambot.drinkWaterMeter.controller;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.client.TelegramFeignClient;
+import spring.telegrambot.drinkWaterMeter.logger.Logger;
 import spring.telegrambot.drinkWaterMeter.service.TelegramWoterService;
 
 
@@ -14,9 +13,6 @@ import spring.telegrambot.drinkWaterMeter.service.TelegramWoterService;
 public class TelegramController {
 
     private final TelegramWoterService telegramService;
-
-
-
     public TelegramController(TelegramWoterService telegramService) {
         this.telegramService = telegramService;
     }
