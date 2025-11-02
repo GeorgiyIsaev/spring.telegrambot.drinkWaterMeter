@@ -4,18 +4,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.logger.Logger;
-import spring.telegrambot.drinkWaterMeter.service.TelegramWoterService;
+import spring.telegrambot.drinkWaterMeter.service.TelegramWaterService;
 
 
 @RestController
 @RequestMapping("/v1/api/telegram")
 public class TelegramController {
 
-    private final TelegramWoterService telegramService;
+    private final TelegramWaterService telegramService;
 
 
-    public TelegramController(TelegramWoterService telegramService) {
+    public TelegramController(TelegramWaterService telegramService) {
         this.telegramService = telegramService;
     }
 
@@ -29,12 +28,6 @@ public class TelegramController {
 
     @PostMapping("/")
     public void postMethod(@RequestBody Update update) {
-        if(update.hasMessage()){
-            String chatId = update.getMessage().getChatId().toString();
-            String text = update.getMessage().getText();
-
-            System.out.println(chatId + " " + text);
-            telegramService.sendMessage(chatId,text);
-        }
+        telegramService.updateRouting(update);
     }
 }
