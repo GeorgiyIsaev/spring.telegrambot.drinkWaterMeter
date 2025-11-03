@@ -6,21 +6,62 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "day_drunk")
-public record WaterDrunksForDay(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        Integer id,
+public class WaterDrunksForDay {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(name = "date_recordings")
+    private LocalDate date;
+    @OneToMany(mappedBy = "dayDrink")
+    private List<WaterDrunk> waterDunks;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User userInfo;
 
-        @Column(name = "date_recordings")
-        LocalDate date,
+    public WaterDrunksForDay(
+            Integer id,
+            LocalDate date,
+            List<WaterDrunk> waterDunks,
+            User userInfo) {
+        this.id = id;
+        this.date = date;
+        this.waterDunks = waterDunks;
+        this.userInfo = userInfo;
+    }
 
-        @OneToMany(mappedBy = "dayDrink")
-        List<WaterDrunk> waterDunks,
+public Integer getId() {
+                return id;
+        }
 
-        @ManyToOne
-        @JoinColumn(name = "user_id")
-        User userInfo) {
+        public void setId(Integer id) {
+                this.id = id;
+        }
+
+        public LocalDate getDate() {
+                return date;
+        }
+
+        public void setDate(LocalDate date) {
+                this.date = date;
+        }
+
+        public List<WaterDrunk> getWaterDunks() {
+                return waterDunks;
+        }
+
+        public void setWaterDunks(List<WaterDrunk> waterDunks) {
+                this.waterDunks = waterDunks;
+        }
+
+        public User getUserInfo() {
+                return userInfo;
+        }
+
+        public void setUserInfo(User userInfo) {
+                this.userInfo = userInfo;
+        }
 }

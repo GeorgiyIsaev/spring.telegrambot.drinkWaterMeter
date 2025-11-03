@@ -10,45 +10,27 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Service
-public class ActionsService {
+public class ButtonsService {
     private final Map<String, Action> actions;
     private final UserService userService;
 
-    public ActionsService(UserService userService) {
+    public ButtonsService(UserService userService) {
         this.userService = userService;
         this.actions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         fillingInActions();
     }
 
     private void fillingInActions() {
-        addHelp();
-        addHello();
-        addDrink();
+        addButtonsDrinkWater();
     }
 
-
-    public void addHelp(){
-        Help help = new Help();
-        actions.put("/help",help);
-        actions.put("хелп",help);
-        actions.put("помощь",help);
-
-        TestDB testDB = new TestDB(userService);
-        actions.put("/test",testDB);
-        actions.put("test",testDB);
+    public void addButtonsDrinkWater() {
+        for(int ml = 200; ml <= 600; ml+=50 ) {
+            Action drinkWaterButton = new DrinkWaterButton(userService, ml);
+            actions.put("button_index_" + ml+"ml", drinkWaterButton);
+        }
     }
 
-    public void addHello(){
-        Hello hello = new Hello(userService);
-        actions.put("/hello",hello);
-        actions.put("Привет",hello);
-    }
-
-    public void addDrink(){
-        DrinkWater drinkWater = new DrinkWater();
-        actions.put("/drunk",drinkWater);
-        actions.put("Выпил",drinkWater);
-    }
 
 
 
@@ -58,11 +40,11 @@ public class ActionsService {
     }
 
     public SendMessage generateRequest(Update update){
-        String command = update.getMessage().getText();
-        Action action = getAction(command);
+        String dataButton = update.getCallbackQuery().getData();
+        Action action = getAction(dataButton);
         if (action == null){
-            String chatId = update.getMessage().getChatId().toString();
-            String text = "Команда "+ command + " не найдена";
+            String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
+            String text = "Кнопка "+ dataButton + " не реализованна!";
             return SendMessage.builder().chatId(chatId).text(text).build();
         }
         return action.generateRequest(update);

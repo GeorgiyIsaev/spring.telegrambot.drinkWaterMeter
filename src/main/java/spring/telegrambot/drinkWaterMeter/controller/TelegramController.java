@@ -1,5 +1,6 @@
 package spring.telegrambot.drinkWaterMeter.controller;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ public class TelegramController {
 
     public TelegramController(TelegramWaterService telegramService) {
         this.telegramService = telegramService;
+    }
+
+    @PostConstruct
+    private void init(){
+        telegramService.setWebhook();
     }
 
     @ExceptionHandler

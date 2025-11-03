@@ -16,23 +16,26 @@ public class TelegramWaterService {
     private final TelegramFeignClient telegramFeignClient;
     private final Logger logger;
     private final ActionsService actionsService;
+    private final ButtonsService buttonsService;
 
     public TelegramWaterService(
             @Value("${telegrambot.urlHostTunnel}") String urlServer,
             TelegramFeignClient telegramFeignClient,
             Logger logger,
+            ButtonsService buttonsService,
             ActionsService actionsService) {
-        System.out.println(urlServer);
+        System.out.println("[" + urlServer + "]");
         this.urlServer = urlServer;
         this.telegramFeignClient = telegramFeignClient;
         this.logger = logger;
         this.actionsService = actionsService;
+        this.buttonsService = buttonsService;
     }
 
-    @PostConstruct
-    public void init(){
-      // SetWebhookRequest request = new SetWebhookRequest(urlServer);
-        SetWebhookRequest request = new SetWebhookRequest("");
+
+    public void setWebhook(){
+      SetWebhookRequest request = new SetWebhookRequest(urlServer);
+        //SetWebhookRequest request = new SetWebhookRequest("");
         String response = telegramFeignClient.setWebhook(request);
         logger.logResponse(response);
     }
@@ -62,19 +65,15 @@ public class TelegramWaterService {
     }
 
     private void replyToCallbackQuery(Update update) {
-//        logger.logMessage(update);
-//        String chatId = update.getMessage().getChatId().toString();
-//        String command = update.getMessage().getText();
-//        SendMessage sendMessage = actionsService.generateRequest(command, chatId);
-//        Request request = telegramFeignClient.sendMessage(sendMessage);
-//        logger.logRequest(request);
+        logger.logCallbackQuery(update);
+        SendMessage sendMessage = buttonsService.generateRequest(update);
+        Request request = telegramFeignClient.sendMessage(sendMessage);
+        logger.logRequest(request);
     }
 
     private void replyToMessage(Update update) {
         logger.logMessage(update);
-        String chatId = update.getMessage().getChatId().toString();
-        String command = update.getMessage().getText();
-        SendMessage sendMessage = actionsService.generateRequest(command, chatId);
+        SendMessage sendMessage = actionsService.generateRequest(update);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);
     }

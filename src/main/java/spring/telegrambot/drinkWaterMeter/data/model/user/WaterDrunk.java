@@ -16,7 +16,7 @@ public record WaterDrunk(
         LocalDateTime time,
 
         @Column(name = "count_water_ml")
-        int countWaterMl,
+        Integer countWaterMl,
 
         @ManyToOne
         @JoinColumn(name = "day_drink_id")
