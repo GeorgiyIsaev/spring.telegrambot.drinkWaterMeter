@@ -23,6 +23,7 @@ public class ButtonsService {
     private void fillingInActions() {
         addButtonsDrinkWater();
         addButtonsWeight();
+        addButtonsDrop();
     }
 
     public void addButtonsDrinkWater() {
@@ -37,6 +38,13 @@ public class ButtonsService {
             Action drinkWaterButton = new WeightButtons(userService, kg);
             actions.put("button_weight_" + kg, drinkWaterButton);
         }
+    }
+
+    public void addButtonsDrop() {
+        Action dropButtonNo = new DropButtonNo();
+        actions.put("button_drop_no", dropButtonNo);
+        Action dropButtonYes = new DropButtonYes(userService);
+        actions.put("button_drop_yes", dropButtonYes);
     }
 
 

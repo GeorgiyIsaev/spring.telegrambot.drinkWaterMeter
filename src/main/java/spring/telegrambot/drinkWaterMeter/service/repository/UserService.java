@@ -29,12 +29,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findByUser(String chatId){
-        return userRepository.findByChatId(chatId);
-    }
 
     public User findOrCreate(String chatId, String username){
-        User user = userRepository.findByChatId(chatId);
+        User user = userRepository.findByUsername(username);
         if(user==null){
             user = createUser(chatId,username);
         }
@@ -58,9 +55,6 @@ public class UserService {
         waterDrunk.setDayDrink(waterDrunksForDay);
         return drunkWaterRepository.save(waterDrunk);
     }
-
-
-
     public User createUser(String chatId, String username) {
         User user = new User(
                 null,
@@ -70,6 +64,16 @@ public class UserService {
                 new ArrayList<>()
         );
         return save(user);
+    }
+
+    public void delete(User user){
+        for(WaterDrunksForDay waterDrunksForDay : user.getCalendarWaterDrunk()){
+            for (WaterDrunk waterDrunk : waterDrunksForDay.getWaterDunks()){
+                drunkWaterRepository.delete(waterDrunk);
+            }
+            drunkDayRepository.delete(waterDrunksForDay);
+        }
+        userRepository.delete(user);
     }
 
 }

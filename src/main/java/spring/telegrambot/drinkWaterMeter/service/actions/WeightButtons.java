@@ -29,6 +29,4 @@ public class WeightButtons implements Action {
         user.setWeight(kg);
         return userService.save(user);
     }
-
-
 }

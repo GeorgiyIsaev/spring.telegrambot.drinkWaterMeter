@@ -4,6 +4,7 @@ package spring.telegrambot.drinkWaterMeter.client;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import spring.telegrambot.drinkWaterMeter.data.request.Request;
 import spring.telegrambot.drinkWaterMeter.data.webhook.SetWebhookRequest;
 
@@ -15,6 +16,9 @@ public interface TelegramFeignClient {
         String setWebhook(SetWebhookRequest request);
 
         @PostMapping("/sendMessage")
-        Request sendMessage(SendMessage request);
+        Request sendMessage(SendMessage sendMessage);
+
+        @PostMapping("/deleteMessage")
+        String deleteMessage(DeleteMessage deleteMessage);
 }
 

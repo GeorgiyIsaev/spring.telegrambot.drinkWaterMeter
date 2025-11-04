@@ -21,7 +21,7 @@ public class Hello implements Action {
 
         System.out.println("Извел екаем из ДБ");
         User user = userService.findOrCreate(chatId, username);
-        String message =user.getName() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
+        String message =user.getUsername() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
         System.out.println(message);
         message +=  weight(user);
         System.out.println(message);

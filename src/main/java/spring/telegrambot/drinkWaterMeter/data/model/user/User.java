@@ -2,9 +2,7 @@ package spring.telegrambot.drinkWaterMeter.data.model.user;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "user_info")
@@ -15,7 +13,7 @@ public class User {
     @Column(name = "chat_id")
     private String chatId;
     @Column(name = "username")
-    private String name;
+    private String username;
     @Column(name = "weight")
     private Integer weight;
     @OneToMany(mappedBy = "userInfo")
@@ -24,13 +22,13 @@ public class User {
     public User(
             Integer id,
             String chatId,
-            String name,
+            String username,
             Integer weight,
             List<WaterDrunksForDay> calendarWaterDrunk
     ) {
         this.id = id;
         this.chatId = chatId;
-        this.name = name;
+        this.username = username;
         this.weight = weight;
         this.calendarWaterDrunk = calendarWaterDrunk;
     }
@@ -39,7 +37,7 @@ public class User {
     }
 
     public String toString() {
-        return "Пользователь " + name + " Вес: " + weight;
+        return "Пользователь " + username + " Вес: " + weight;
     }
 
     public Integer getId() {
@@ -58,12 +56,12 @@ public class User {
         this.chatId = chatId;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Integer getWeight() {

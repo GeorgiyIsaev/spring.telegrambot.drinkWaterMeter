@@ -25,6 +25,7 @@ public class ActionsService {
         addHello();
         addDrink();
         addWeight();
+        addDrop();
     }
 
 
@@ -55,6 +56,11 @@ public class ActionsService {
         Weight weight = new Weight();
         actions.put("/weight",weight);
         actions.put("Вес",weight);
+    }
+
+    public void addDrop(){
+        Drop drop = new Drop();
+        actions.put("/drop",drop);
     }
 
 

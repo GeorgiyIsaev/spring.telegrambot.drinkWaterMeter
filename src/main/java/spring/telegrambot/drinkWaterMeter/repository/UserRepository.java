@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByChatId(String chatId);
+    User findByUsername(String username);
 }
 
 
