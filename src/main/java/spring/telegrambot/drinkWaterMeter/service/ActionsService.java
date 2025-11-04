@@ -24,6 +24,7 @@ public class ActionsService {
         addHelp();
         addHello();
         addDrink();
+        addWeight();
     }
 
 
@@ -50,6 +51,11 @@ public class ActionsService {
         actions.put("Выпил",drinkWater);
     }
 
+    public void addWeight(){
+        Weight weight = new Weight();
+        actions.put("/weight",weight);
+        actions.put("Вес",weight);
+    }
 
 
     public Action getAction(String command){

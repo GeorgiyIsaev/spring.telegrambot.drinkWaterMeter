@@ -22,12 +22,20 @@ public class ButtonsService {
 
     private void fillingInActions() {
         addButtonsDrinkWater();
+        addButtonsWeight();
     }
 
     public void addButtonsDrinkWater() {
         for(int ml = 200; ml <= 600; ml+=50 ) {
             Action drinkWaterButton = new DrinkWaterButton(userService, ml);
             actions.put("button_index_" + ml+"ml", drinkWaterButton);
+        }
+    }
+
+    public void addButtonsWeight() {
+        for(int kg = 40; kg <= 180; kg+=5 ) {
+            Action drinkWaterButton = new WeightButtons(userService, kg);
+            actions.put("button_weight_" + kg, drinkWaterButton);
         }
     }
 

@@ -39,7 +39,7 @@ public class User {
     }
 
     public String toString() {
-        return "Пользователь" + name + " Вес: " + weight;
+        return "Пользователь " + name + " Вес: " + weight;
     }
 
     public Integer getId() {
