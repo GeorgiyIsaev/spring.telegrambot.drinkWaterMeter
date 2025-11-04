@@ -50,10 +50,10 @@ public class Hello implements Action {
         else{
             WaterDrunksForDay lastDay= user.getCalendarWaterDrunk().getLast();
 
-            StringBuilder text = new StringBuilder("Последний день записей: " + lastDay.getDate());
+            StringBuilder text = new StringBuilder("Последний день записей: " + lastDay.getDate()+ "\n");
             for(WaterDrunk waterDrunk : lastDay.getWaterDunks()){
-                text.append("В ").append(waterDrunk.time().toLocalTime())
-                        .append(" выпито ").append(waterDrunk.countWaterMl())
+                text.append("В ").append(waterDrunk.getTime().toLocalTime())
+                        .append(" выпито ").append(waterDrunk.getCountWaterMl())
                         .append(" мл воды\n");
             }
             return text.toString();

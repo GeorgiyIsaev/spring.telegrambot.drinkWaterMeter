@@ -22,6 +22,9 @@ public class WaterDrunksForDay {
     @JoinColumn(name = "user_id")
     private User userInfo;
 
+    public WaterDrunksForDay() {
+    }
+
     public WaterDrunksForDay(
             Integer id,
             LocalDate date,
