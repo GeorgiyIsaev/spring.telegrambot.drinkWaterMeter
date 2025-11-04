@@ -1,8 +1,9 @@
-package spring.telegrambot.drinkWaterMeter.service.actions;
+package spring.telegrambot.drinkWaterMeter.service.buttons;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.data.model.user.User;
+import spring.telegrambot.drinkWaterMeter.service.actions.Action;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
 public class WeightButtons implements Action {
