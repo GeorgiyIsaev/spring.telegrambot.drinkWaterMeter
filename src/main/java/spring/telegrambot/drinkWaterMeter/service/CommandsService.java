@@ -62,6 +62,9 @@ public class CommandsService {
         Height height = new Height();
         actions.put("/height",height);
         actions.put("Рост",height);
+        Sex sex = new Sex();
+        actions.put("/sex",sex);
+        actions.put("пол",sex);
     }
 
     public void addDrop(){

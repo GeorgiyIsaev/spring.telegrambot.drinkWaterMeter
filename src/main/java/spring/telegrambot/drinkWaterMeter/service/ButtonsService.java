@@ -25,6 +25,7 @@ public class ButtonsService {
         addButtonsDrinkWater();
         addButtonsWeight();
         addButtonsDrop();
+        addSexChange();
     }
 
     public void addButtonsDrinkWater() {
@@ -50,6 +51,13 @@ public class ButtonsService {
         actions.put("button_drop_no", dropButtonNo);
         Action dropButtonYes = new DropButtonYes(userService);
         actions.put("button_drop_yes", dropButtonYes);
+    }
+
+    public void addSexChange() {
+        SexButton sexButtonWoman = new SexButton(userService, true);
+        actions.put("button_woman", sexButtonWoman);
+        SexButton sexButtonMan = new SexButton(userService, false);
+        actions.put("button_man", sexButtonMan);
     }
 
 
