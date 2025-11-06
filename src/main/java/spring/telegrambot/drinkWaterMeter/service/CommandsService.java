@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @Service
-public class ActionsService {
+public class CommandsService {
     private final Map<String, Action> actions;
     private final UserService userService;
 
-    public ActionsService(UserService userService) {
+    public CommandsService(UserService userService) {
         this.userService = userService;
         this.actions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         fillingInActions();
@@ -26,6 +26,7 @@ public class ActionsService {
         addDrink();
         addWeight();
         addDrop();
+        addRecommended();
     }
 
 
@@ -34,10 +35,6 @@ public class ActionsService {
         actions.put("/help",help);
         actions.put("хелп",help);
         actions.put("помощь",help);
-
-        TestDB testDB = new TestDB(userService);
-        actions.put("/test",testDB);
-        actions.put("test",testDB);
     }
 
     public void addHello(){
@@ -45,6 +42,12 @@ public class ActionsService {
         actions.put("/hello",hello);
         actions.put("Привет",hello);
     }
+    public void addRecommended(){
+        Recommended recommended = new Recommended(userService);
+        actions.put("/recommended",recommended);
+        actions.put("Рекомендации",recommended);
+    }
+
 
     public void addDrink(){
         DrinkWater drinkWater = new DrinkWater();
@@ -56,6 +59,9 @@ public class ActionsService {
         Weight weight = new Weight();
         actions.put("/weight",weight);
         actions.put("Вес",weight);
+        Height height = new Height();
+        actions.put("/height",height);
+        actions.put("Рост",height);
     }
 
     public void addDrop(){

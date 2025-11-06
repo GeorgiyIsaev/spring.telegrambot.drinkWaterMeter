@@ -33,7 +33,7 @@ public class Recommended  implements Action{
         Integer weight = user.getWeight();
         Boolean sex = user.getSex();
         if(weight==null || height==null){
-            return "Вы не указали вес и рост. Среднее рекомендуемое значение воды для человек составляет 2.5 л в сутки!";
+            return "\nВы не указали вес и рост. Среднее рекомендуемое значение воды для человек составляет 2.5 л в сутки!";
         }
         int recommendedWeight = CalculatingDrinkingNorms.of().recommendedWeight(height, sex);
 

@@ -1,6 +1,5 @@
 package spring.telegrambot.drinkWaterMeter.service;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,7 +15,7 @@ public class TelegramWaterService {
     private final String urlServer;
     private final TelegramFeignClient telegramFeignClient;
     private final Logger logger;
-    private final ActionsService actionsService;
+    private final CommandsService commandsService;
     private final ButtonsService buttonsService;
 
     public TelegramWaterService(
@@ -24,12 +23,12 @@ public class TelegramWaterService {
             TelegramFeignClient telegramFeignClient,
             Logger logger,
             ButtonsService buttonsService,
-            ActionsService actionsService) {
+            CommandsService commandsService) {
         System.out.println("[" + urlServer + "]");
         this.urlServer = urlServer;
         this.telegramFeignClient = telegramFeignClient;
         this.logger = logger;
-        this.actionsService = actionsService;
+        this.commandsService = commandsService;
         this.buttonsService = buttonsService;
     }
 
@@ -83,7 +82,7 @@ public class TelegramWaterService {
 
     private void replyToMessage(Update update) {
         logger.logMessage(update);
-        SendMessage sendMessage = actionsService.generateRequest(update);
+        SendMessage sendMessage = commandsService.generateRequest(update);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);
 

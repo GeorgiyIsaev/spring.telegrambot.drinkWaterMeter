@@ -6,28 +6,28 @@ import spring.telegrambot.drinkWaterMeter.data.model.user.User;
 import spring.telegrambot.drinkWaterMeter.service.actions.Action;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
-public class WeightButtons implements Action {
+public class HieghtButton implements Action {
         private final UserService userService;
-        private final int kg;
+        private final int cm;
 
-        public WeightButtons(UserService userService, int kg) {
+        public HieghtButton(UserService userService, int cm) {
             this.userService = userService;
-            this.kg = kg;
+            this.cm = cm;
         }
 
         @Override
         public SendMessage generateRequest(Update update) {
             String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
             String username = update.getCallbackQuery().getFrom().getUserName();
-            String text = "Ваш вес изменен на " + kg + " кг";
+            String text = "Ваш рост изменен на " + cm + " см";
             User user = userService.findOrCreate(chatId, username);
             User userUpdate =  updateUser(user);
-            text += "\n" + userUpdate;
+            text += "\n" + userUpdate.getUsername() + ": " + userUpdate.getHeight() + " см.";
             return SendMessage.builder().chatId(chatId).text(text).build();
         }
 
     private User updateUser(User user) {
-        user.setWeight(kg);
+        user.setHeight(cm);
         return userService.save(user);
     }
 }

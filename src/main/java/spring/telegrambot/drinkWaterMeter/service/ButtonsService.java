@@ -4,10 +4,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.service.actions.*;
-import spring.telegrambot.drinkWaterMeter.service.buttons.DrinkWaterButton;
-import spring.telegrambot.drinkWaterMeter.service.buttons.DropButtonNo;
-import spring.telegrambot.drinkWaterMeter.service.buttons.DropButtonYes;
-import spring.telegrambot.drinkWaterMeter.service.buttons.WeightButtons;
+import spring.telegrambot.drinkWaterMeter.service.buttons.*;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
 import java.util.Map;
@@ -39,8 +36,12 @@ public class ButtonsService {
 
     public void addButtonsWeight() {
         for(int kg = 40; kg <= 180; kg+=5 ) {
-            Action drinkWaterButton = new WeightButtons(userService, kg);
-            actions.put("button_weight_" + kg, drinkWaterButton);
+            Action weightButton = new WeightButton(userService, kg);
+            actions.put("button_weight_" + kg, weightButton);
+        }
+        for(int cm = 90; cm <= 250; cm+=5 ) {
+            Action hieghtButton = new HieghtButton(userService,  cm);
+            actions.put("button_weight_" + cm, hieghtButton);
         }
     }
 

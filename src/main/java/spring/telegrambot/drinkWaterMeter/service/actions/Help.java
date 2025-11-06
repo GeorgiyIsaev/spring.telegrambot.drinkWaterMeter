@@ -9,8 +9,11 @@ public class Help implements Action {
         String chatId = update.getMessage().getChatId().toString();
         String text =       "/help (хелп, помощь) - отобразить инструкцию для пользователя\n" +
                 "/weight" + " Изменить вес\n" +
+                "/height" + " Изменить рост\n" +
+                "/sex" + " Указать пол\n" +
                 "/hello" + " Отобразить информацию о пользователе\n" +
                 "/drunk" + " Выпить воды\n" +
+                "/recommended" + " Показать рекомендации\n" +
                 "Другие функции пока не добавлены";
 
         return SendMessage.builder().chatId(chatId).text(text).build();
