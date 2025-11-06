@@ -9,11 +9,8 @@ public class CalculatingDrinkingNorms {
     //При занятии спортом рекомендуется пить на 500-600мл в день больше
     //Норма потребления воды зависит от веса и возраста человека, погодных условий и физических нагрузок
 
-    private final CalculatingDrinkingNorms calculatingDrinkingNorms;
-    private CalculatingDrinkingNorms(CalculatingDrinkingNorms calculatingDrinkingNorms) {
-        this.calculatingDrinkingNorms = calculatingDrinkingNorms;
-    }
-   public CalculatingDrinkingNorms of(){
+    private final static CalculatingDrinkingNorms calculatingDrinkingNorms = new CalculatingDrinkingNorms();
+   public static CalculatingDrinkingNorms of(){
         return calculatingDrinkingNorms;
    }
 

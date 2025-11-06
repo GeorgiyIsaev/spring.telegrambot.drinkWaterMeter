@@ -16,6 +16,11 @@ public class User {
     private String username;
     @Column(name = "weight")
     private Integer weight;
+    @Column(name = "height")
+    private Integer height;
+    @Column(name = "sex")
+    private Boolean sex;
+
     @OneToMany(mappedBy = "userInfo")
     private List<WaterDrunksForDay> calendarWaterDrunk;
 
@@ -74,6 +79,22 @@ public class User {
 
     public List<WaterDrunksForDay> getCalendarWaterDrunk() {
         return calendarWaterDrunk;
+    }
+
+    public Boolean getSex() {
+        return sex;
+    }
+
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
     }
 
     public void setCalendarWaterDrunk(List<WaterDrunksForDay> calendarWaterDrunk) {
