@@ -22,41 +22,65 @@ public class Hello implements Action {
         System.out.println("Извел екаем из ДБ");
         User user = userService.findOrCreate(chatId, username);
         String message =user.getUsername() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
-        System.out.println(message);
-        message +=  weight(user);
-        System.out.println(message);
+        message +=  height(user) +  "\n";
+        message +=  weight(user) +  "\n";
+        message +=  sex(user) +  "\n";
         message +=  "\n" + calendarWaterDrunk (user);
-        System.out.println(message);
+
 
         return SendMessage.builder().chatId(chatId).text(message).build();
     }
 
     public String weight(User user){
         if(user.getWeight()==0){
-            return "Вы еще не указали свой вес!";
+            return "Вы не указали свой вес! /weight";
         }
         else {
-            return "Ваш вес составляет " + user.getWeight() + " кг.";
+            return "Вес: " + user.getWeight() + " кг. /weight";
+        }
+    }
+
+    public String height(User user){
+        if(user.getHeight()==0){
+            return "Вы не указали свой рост! /height";
+        }
+        else {
+            return "Рост: " + user.getHeight() + " см. /height";
+        }
+    }
+
+
+    public String sex(User user){
+        if(user.getSex()== null){
+            return "Вы не указали свой пол! /sex";
+        }
+        else {
+            String sex = user.getSex() ? "женский" : "мужской";
+            return  "Пол: " + sex + ". /sex";
         }
     }
 
     public String calendarWaterDrunk(User user) {
-        if(user.getCalendarWaterDrunk()==null){
+        if (user.getCalendarWaterDrunk().isEmpty() || user.getCalendarWaterDrunk() == null) {
             return "Записи о выпитой воде отсутствуют!";
         }
-        else if (user.getCalendarWaterDrunk().isEmpty()){
-            return "Вы еще не вносили записей о количестве выпитой воды!";
-        }
-        else{
-            WaterDrunksForDay lastDay= user.getCalendarWaterDrunk().getLast();
 
-            StringBuilder text = new StringBuilder("Последний день записей: " + lastDay.getDate()+ "\n");
-            for(WaterDrunk waterDrunk : lastDay.getWaterDunks()){
-                text.append("В ").append(waterDrunk.getTime().toLocalTime())
-                        .append(" выпито ").append(waterDrunk.getCountWaterMl())
-                        .append(" мл воды\n");
-            }
-            return text.toString();
+        WaterDrunksForDay lastDay = user.getCalendarWaterDrunk().getLast();
+
+        StringBuilder text = new StringBuilder("Последний день записей: " + lastDay.getDate() + "\n");
+        for (WaterDrunk waterDrunk : lastDay.getWaterDunks()) {
+            text.append("В ")
+                    .append(getTime(waterDrunk))
+                    .append(" выпито ")
+                    .append(waterDrunk.getCountWaterMl())
+                    .append(" мл воды\n");
         }
+        return text.toString();
+    }
+
+    public String getTime(WaterDrunk waterDrunk){
+        return waterDrunk.getTime().getHour() + ":" +
+                waterDrunk.getTime().getMinute() + ":" +
+                waterDrunk.getTime().getSecond();
     }
 }

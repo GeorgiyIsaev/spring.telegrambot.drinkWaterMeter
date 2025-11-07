@@ -37,7 +37,7 @@ public class Recommended  implements Action{
         }
         int recommendedWeight = CalculatingDrinkingNorms.of().recommendedWeight(height, sex);
 
-        return recommendedWeight(height, sex) + massEstimate(recommendedWeight, weight);
+        return "\n" + recommendedWeight(height, sex) + massEstimate(recommendedWeight, weight);
     }
 
     public String recommendedWeight(Integer height,  Boolean sex){
@@ -54,16 +54,16 @@ public class Recommended  implements Action{
         }
         double percent = calculatePercentageDifference(weight,recommendedWeight);
         if(percent < 10){
-            return "Ваш весь в "+weight+" кг находится в допустимом диапазоне до " +  percent + " %. " +
+            return "Ваш вес в "+weight+" кг находится в допустимом диапазоне до " +  percent + " %. " +
                     waterDay(CalculatingDrinkingNorms.of().drinkingNorms(recommendedWeight));
         }
 
         if(recommendedWeight < weight) {
-            return "Ваш весь в "+weight+" кг превышает рекомендуемому норму, рекомендуется пить больше воды. "+
+            return "Ваш вес в "+weight+" кг превышает рекомендуемому норму, рекомендуется пить больше воды. "+
                     waterDay(CalculatingDrinkingNorms.of().drinkingOverweight(recommendedWeight));
         }
         else {
-            return "Ваш весь в "+weight+" меньше рекомендуемой (вам нужно больше есть). "+
+            return "Ваш вес в "+weight+" меньше рекомендуемой (вам нужно больше есть). "+
                     waterDay(CalculatingDrinkingNorms.of().drinkingNorms(recommendedWeight));
         }
     }

@@ -6,11 +6,11 @@ import spring.telegrambot.drinkWaterMeter.data.model.user.User;
 import spring.telegrambot.drinkWaterMeter.service.actions.Action;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
-public class HieghtButton implements Action {
+public class HeightButton implements Action {
         private final UserService userService;
         private final int cm;
 
-        public HieghtButton(UserService userService, int cm) {
+        public HeightButton(UserService userService, int cm) {
             this.userService = userService;
             this.cm = cm;
         }
