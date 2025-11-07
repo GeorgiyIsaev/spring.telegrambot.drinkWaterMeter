@@ -3,8 +3,12 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.data.model.user.User;
+import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunk;
+import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunksForDay;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 import spring.telegrambot.drinkWaterMeter.service.utils.CalculatingDrinkingNorms;
+
+import java.time.LocalDate;
 
 public class Recommended  implements Action{
 
@@ -19,7 +23,8 @@ public class Recommended  implements Action{
         String username = update.getMessage().getFrom().getUserName();
         User user = userService.findOrCreate(chatId, username);
 
-        String message = hider() +infoUser(user);
+        String message = hider() + infoUser(user) + "\n\n" + drunkAllToday(user);
+
         return SendMessage.builder().chatId(chatId).text(message).build();
     }
 
@@ -53,8 +58,8 @@ public class Recommended  implements Action{
             return waterDay(2500);
         }
         double percent = calculatePercentageDifference(weight,recommendedWeight);
-        if(percent < 10){
-            return "Ваш вес в "+weight+" кг находится в допустимом диапазоне до " +  percent + " %. " +
+        if(percent < 20){
+            return "Ваш вес в "+ weight+" кг находится в допустимом диапазоне до " +  percent + " %. " +
                     waterDay(CalculatingDrinkingNorms.of().drinkingNorms(recommendedWeight));
         }
 
@@ -69,6 +74,8 @@ public class Recommended  implements Action{
     }
 
     public String waterDay(int ml){
+        ml /= 100;
+        ml *= 100;
         double l = ml * 0.001;
         return "Рекомендуемое количестве воды в сутки  " + l + " литров! ";
     }
@@ -80,5 +87,21 @@ public class Recommended  implements Action{
             throw new IllegalArgumentException("Negative value.");
         }
         return Math.abs((weightE - weightR) / average) * 100;
+    }
+
+    public String drunkAllToday(User user){
+        if (user.getCalendarWaterDrunk().isEmpty() || user.getCalendarWaterDrunk() == null) {
+            return "Записи о выпитой воде отсутствуют!";
+        }
+        WaterDrunksForDay lastDay = user.getCalendarWaterDrunk().getLast();
+        if(!lastDay.getDate().equals(LocalDate.now())){
+            return "Вы еще не вносили данные о выпитой сегодня жидкости";
+        }
+
+        int allml = 0;
+        for (WaterDrunk waterDrunk : lastDay.getWaterDunks()) {
+            allml += waterDrunk.getCountWaterMl();
+        }
+        return "Всего за сегодня выпито " + allml + " мл жидкости.";
     }
 }

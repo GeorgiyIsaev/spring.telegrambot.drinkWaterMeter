@@ -68,13 +68,16 @@ public class Hello implements Action {
         WaterDrunksForDay lastDay = user.getCalendarWaterDrunk().getLast();
 
         StringBuilder text = new StringBuilder("Последний день записей: " + lastDay.getDate() + "\n");
+        int allml = 0;
         for (WaterDrunk waterDrunk : lastDay.getWaterDunks()) {
             text.append("В ")
                     .append(getTime(waterDrunk))
                     .append(" выпито ")
                     .append(waterDrunk.getCountWaterMl())
                     .append(" мл воды\n");
+            allml += waterDrunk.getCountWaterMl();
         }
+        text.append("Всего за день выпито ").append(allml).append(" мл жидкости.");
         return text.toString();
     }
 
