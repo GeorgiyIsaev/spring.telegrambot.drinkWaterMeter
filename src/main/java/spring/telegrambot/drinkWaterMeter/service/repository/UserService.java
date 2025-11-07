@@ -55,6 +55,15 @@ public class UserService {
         waterDrunk.setDayDrink(waterDrunksForDay);
         return drunkWaterRepository.save(waterDrunk);
     }
+    public WaterDrunk addToDay(WaterDrunksForDay waterDrunksForDay, Integer ml, LocalDateTime localDateTime){
+        WaterDrunk waterDrunk = new WaterDrunk();
+        waterDrunk.setTime(localDateTime);
+        waterDrunk.setCountWaterMl(ml);
+        waterDrunk.setDayDrink(waterDrunksForDay);
+        return drunkWaterRepository.save(waterDrunk);
+    }
+
+
     public User createUser(String chatId, String username) {
         User user = new User(
                 null,

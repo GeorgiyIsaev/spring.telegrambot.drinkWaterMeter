@@ -8,6 +8,9 @@ import spring.telegrambot.drinkWaterMeter.service.actions.Action;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class DrinkWaterButton implements Action {
     private final  UserService userService;
@@ -24,11 +27,12 @@ public class DrinkWaterButton implements Action {
         String username = update.getCallbackQuery().getFrom().getUserName();
         String text = "Выпил " + ml + " мл воды.";
         User user = userService.findOrCreate(chatId, username);
-        drink(user);
+        LocalDateTime time = toLocalDataTime(update);
+        drink(user, time);
         return SendMessage.builder().chatId(chatId).text(text).build();
     }
 
-    public void drink(User user){
+    public void drink(User user, LocalDateTime time){
         if(user.getCalendarWaterDrunk().isEmpty()){
             System.out.println("Список пуст");
             createWaterDrunksForDay(user);
@@ -37,13 +41,26 @@ public class DrinkWaterButton implements Action {
             System.out.println("Сегодня нет");
             createWaterDrunksForDay(user);
         }
-
         WaterDrunksForDay waterDrunksForDay = user.getCalendarWaterDrunk().getLast();
         userService.addToDay(waterDrunksForDay, ml);
+       // userService.addToDay(waterDrunksForDay, ml, time);
     }
 
     public void createWaterDrunksForDay(User user){
         WaterDrunksForDay waterDrunksForDay = userService.saveNow(user);
         user.getCalendarWaterDrunk().add(waterDrunksForDay);
+    }
+
+    public LocalDateTime toLocalDataTime(Update update){
+        Integer integer = update.getCallbackQuery().getMessage().getDate();
+        long long2 = update.getCallbackQuery().getMessage().getDate() * 1000;
+        System.out.println("integer: " + integer);
+        Date time = new Date(long2);
+        System.out.println("time: " + time);
+        LocalDateTime ldt = time.toInstant().atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        System.out.println("LocalDateTime: " + ldt);
+        return ldt;
+
     }
 }
