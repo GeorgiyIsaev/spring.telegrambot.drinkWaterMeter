@@ -3,8 +3,8 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunk;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunksForDay;
+import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrink;
+import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 import spring.telegrambot.drinkWaterMeter.service.utils.CalculatingDrinkingNorms;
 
@@ -57,9 +57,9 @@ public class Recommended  implements Action{
         if(weight==null){
             return waterDay(2500);
         }
-        double percent = calculatePercentageDifference(weight,recommendedWeight);
+        int percent = (int) calculatePercentageDifference(weight,recommendedWeight);
         if(percent < 20){
-            return "Ваш вес в "+ weight+" кг находится в допустимом диапазоне до " +  percent + " %. " +
+            return "Ваш вес в "+ weight+" кг находится в идеальном диапазоне до " +  percent + " %. " +
                     waterDay(CalculatingDrinkingNorms.of().drinkingNorms(recommendedWeight));
         }
 
@@ -74,10 +74,10 @@ public class Recommended  implements Action{
     }
 
     public String waterDay(int ml){
-        ml /= 100;
-        ml *= 100;
-        double l = ml * 0.001;
-        return "Рекомендуемое количестве воды в сутки  " + l + " литров! ";
+        int litre = ml/1000;
+        int mlilitre = (ml - litre * 1000) / 100;
+
+        return "Рекомендуемое количестве воды в сутки  " + litre +"." + mlilitre + " литров! ";
     }
 
 
@@ -93,14 +93,14 @@ public class Recommended  implements Action{
         if (user.getCalendarWaterDrunk().isEmpty() || user.getCalendarWaterDrunk() == null) {
             return "Записи о выпитой воде отсутствуют!";
         }
-        WaterDrunksForDay lastDay = user.getCalendarWaterDrunk().getLast();
+        DayDrinks lastDay = user.getCalendarWaterDrunk().getLast();
         if(!lastDay.getDate().equals(LocalDate.now())){
             return "Вы еще не вносили данные о выпитой сегодня жидкости";
         }
 
         int allml = 0;
-        for (WaterDrunk waterDrunk : lastDay.getWaterDunks()) {
-            allml += waterDrunk.getCountWaterMl();
+        for (WaterDrink waterDrink : lastDay.getWaterDunks()) {
+            allml += waterDrink.getCountWaterMl();
         }
         return "Всего за сегодня выпито " + allml + " мл жидкости.";
     }

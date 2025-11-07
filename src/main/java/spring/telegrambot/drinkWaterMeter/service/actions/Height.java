@@ -25,10 +25,10 @@ public class Height implements Action{
     public   List<List<InlineKeyboardButton>> buttonsGenerator(){
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
 
-        int height = 90;
+        int height = 80;
         for(int i=0; i<6; i++){
             List<InlineKeyboardButton> lineButtons = new ArrayList<>();
-            for(int j=0; j<8; j++){
+            for(int j=0; j<5; j++){
                 lineButtons.add(InlineKeyboardButton.builder()
                         .text(height + " см")
                         .callbackData("button_height_" + height)

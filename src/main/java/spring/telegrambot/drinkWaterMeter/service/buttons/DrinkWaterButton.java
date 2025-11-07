@@ -2,8 +2,8 @@ package spring.telegrambot.drinkWaterMeter.service.buttons;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunksForDay;
 import spring.telegrambot.drinkWaterMeter.service.actions.Action;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
@@ -39,14 +39,14 @@ public class DrinkWaterButton implements Action {
         else if(!user.getCalendarWaterDrunk().getLast().getDate().equals(LocalDate.now())){
             createWaterDrunksForDay(user);
         }
-        WaterDrunksForDay waterDrunksForDay = user.getCalendarWaterDrunk().getLast();
-        userService.addToDay(waterDrunksForDay, ml);
-       // userService.addToDay(waterDrunksForDay, ml, time);
+        DayDrinks dayDrinks = user.getCalendarWaterDrunk().getLast();
+        userService.addToDay(dayDrinks, ml);
+       // userService.addToDay(dayDrinks, ml, time);
     }
 
     public void createWaterDrunksForDay(User user){
-        WaterDrunksForDay waterDrunksForDay = userService.saveNow(user);
-        user.getCalendarWaterDrunk().add(waterDrunksForDay);
+        DayDrinks dayDrinks = userService.saveNow(user);
+        user.getCalendarWaterDrunk().add(dayDrinks);
     }
 
     public LocalDateTime toLocalDataTime(Update update){

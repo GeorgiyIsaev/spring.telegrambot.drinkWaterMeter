@@ -16,7 +16,7 @@ public class CalculatingDrinkingNorms {
 
    public int recommendedWeightM(int height){
         //формула Брокка для мужчин
-       double weight = (height-100) * 1.15;
+       double weight = (height-100) * 1.05;
        return (int) weight;
 
    }

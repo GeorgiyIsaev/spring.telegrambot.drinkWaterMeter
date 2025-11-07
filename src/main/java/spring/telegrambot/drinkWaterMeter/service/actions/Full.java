@@ -3,8 +3,8 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunk;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunksForDay;
+import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrink;
+import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
 public class Full implements Action {
@@ -33,16 +33,16 @@ public class Full implements Action {
             return "Записи о выпитой воде отсутствуют!";
         }
         StringBuilder text = new StringBuilder();
-        for(  WaterDrunksForDay lastDay : user.getCalendarWaterDrunk()) {
+        for(  DayDrinks lastDay : user.getCalendarWaterDrunk()) {
             StringBuilder day = new StringBuilder();
             int allml = 0;
-            for (WaterDrunk waterDrunk : lastDay.getWaterDunks()) {
+            for (WaterDrink waterDrink : lastDay.getWaterDunks()) {
                 day.append("В ")
-                        .append(getTime(waterDrunk))
+                        .append(getTime(waterDrink))
                         .append(" выпито ")
-                        .append(waterDrunk.getCountWaterMl())
+                        .append(waterDrink.getCountWaterMl())
                         .append(" мл воды\n");
-                allml += waterDrunk.getCountWaterMl();
+                allml += waterDrink.getCountWaterMl();
             }
             text.append("--- День:  ").append(lastDay.getDate());
             text.append(" Всего за день выпито ").append(allml).append(" мл жидкости.\n");
@@ -51,9 +51,9 @@ public class Full implements Action {
         return text.toString();
     }
 
-    public String getTime(WaterDrunk waterDrunk){
-        return waterDrunk.getTime().getHour() + ":" +
-                waterDrunk.getTime().getMinute() + ":" +
-                waterDrunk.getTime().getSecond();
+    public String getTime(WaterDrink waterDrink){
+        return waterDrink.getTime().getHour() + ":" +
+                waterDrink.getTime().getMinute() + ":" +
+                waterDrink.getTime().getSecond();
     }
 }

@@ -26,9 +26,9 @@ public class Weight implements Action{
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
 
         int weight = 40;
-        for(int i=0; i<4; i++){
+        for(int i=0; i<6; i++){
             List<InlineKeyboardButton> lineButtons = new ArrayList<>();
-            for(int j=0; j<7; j++){
+            for(int j=0; j<5; j++){
                 lineButtons.add(InlineKeyboardButton.builder()
                         .text(weight + " кг")
                         .callbackData("button_weight_" + weight)

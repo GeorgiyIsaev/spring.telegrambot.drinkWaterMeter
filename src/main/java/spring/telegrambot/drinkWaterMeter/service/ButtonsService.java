@@ -36,11 +36,11 @@ public class ButtonsService {
     }
 
     public void addButtonsWeight() {
-        for(int kg = 40; kg <= 180; kg+=5 ) {
+        for(int kg = 40; kg <= 190; kg+=5 ) {
             Action weightButton = new WeightButton(userService, kg);
             actions.put("button_weight_" + kg, weightButton);
         }
-        for(int cm = 90; cm <= 250; cm+=5 ) {
+        for(int cm = 80; cm <= 250; cm+=5 ) {
             Action heightButton = new HeightButton(userService,  cm);
             actions.put("button_height_" + cm, heightButton);
         }

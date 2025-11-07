@@ -3,32 +3,29 @@ package spring.telegrambot.drinkWaterMeter.data.model.user;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "day_drunk")
-public class WaterDrunksForDay {
+public class DayDrinks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "date_recordings")
     private LocalDate date;
     @OneToMany(mappedBy = "dayDrink")
-    private List<WaterDrunk> waterDunks;
+    private List<WaterDrink> waterDunks;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User userInfo;
 
-    public WaterDrunksForDay() {
+    public DayDrinks() {
     }
 
-    public WaterDrunksForDay(
+    public DayDrinks(
             Integer id,
             LocalDate date,
-            List<WaterDrunk> waterDunks,
+            List<WaterDrink> waterDunks,
             User userInfo) {
         this.id = id;
         this.date = date;
@@ -52,11 +49,11 @@ public Integer getId() {
                 this.date = date;
         }
 
-        public List<WaterDrunk> getWaterDunks() {
+        public List<WaterDrink> getWaterDunks() {
                 return waterDunks;
         }
 
-        public void setWaterDunks(List<WaterDrunk> waterDunks) {
+        public void setWaterDunks(List<WaterDrink> waterDunks) {
                 this.waterDunks = waterDunks;
         }
 

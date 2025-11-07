@@ -1,11 +1,11 @@
 package spring.telegrambot.drinkWaterMeter.service.repository;
 
 import org.springframework.stereotype.Service;
+import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunk;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunksForDay;
-import spring.telegrambot.drinkWaterMeter.repository.DrunkDayRepository;
-import spring.telegrambot.drinkWaterMeter.repository.DrunkWaterRepository;
+import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrink;
+import spring.telegrambot.drinkWaterMeter.repository.DrinkDayRepository;
+import spring.telegrambot.drinkWaterMeter.repository.DrinkWaterRepository;
 import spring.telegrambot.drinkWaterMeter.repository.UserRepository;
 
 import java.time.LocalDate;
@@ -16,13 +16,13 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final DrunkDayRepository drunkDayRepository;
-    private final DrunkWaterRepository drunkWaterRepository;
+    private final DrinkDayRepository drinkDayRepository;
+    private final DrinkWaterRepository drinkWaterRepository;
 
-    public UserService(UserRepository userRepository, DrunkDayRepository drunkDayRepository, DrunkWaterRepository drunkWaterRepository) {
+    public UserService(UserRepository userRepository, DrinkDayRepository drinkDayRepository, DrinkWaterRepository drinkWaterRepository) {
         this.userRepository = userRepository;
-        this.drunkDayRepository = drunkDayRepository;
-        this.drunkWaterRepository = drunkWaterRepository;
+        this.drinkDayRepository = drinkDayRepository;
+        this.drinkWaterRepository = drinkWaterRepository;
     }
 
     public List<User> findAll(){
@@ -41,26 +41,26 @@ public class UserService {
     public User save(User user){
         return userRepository.save(user);
     }
-    public WaterDrunksForDay saveNow(User user){
-        WaterDrunksForDay waterDrunksForDay = new WaterDrunksForDay();
-        waterDrunksForDay.setDate(LocalDate.now());
-        waterDrunksForDay.setUserInfo(user);
-        return drunkDayRepository.save(waterDrunksForDay);
+    public DayDrinks saveNow(User user){
+        DayDrinks dayDrinks = new DayDrinks();
+        dayDrinks.setDate(LocalDate.now());
+        dayDrinks.setUserInfo(user);
+        return drinkDayRepository.save(dayDrinks);
     }
 
-    public WaterDrunk addToDay(WaterDrunksForDay waterDrunksForDay, Integer ml){
-        WaterDrunk waterDrunk = new WaterDrunk();
-        waterDrunk.setTime(LocalDateTime.now());
-        waterDrunk.setCountWaterMl(ml);
-        waterDrunk.setDayDrink(waterDrunksForDay);
-        return drunkWaterRepository.save(waterDrunk);
+    public WaterDrink addToDay(DayDrinks dayDrinks, Integer ml){
+        WaterDrink waterDrink = new WaterDrink();
+        waterDrink.setTime(LocalDateTime.now());
+        waterDrink.setCountWaterMl(ml);
+        waterDrink.setDayDrink(dayDrinks);
+        return drinkWaterRepository.save(waterDrink);
     }
-    public WaterDrunk addToDay(WaterDrunksForDay waterDrunksForDay, Integer ml, LocalDateTime localDateTime){
-        WaterDrunk waterDrunk = new WaterDrunk();
-        waterDrunk.setTime(localDateTime);
-        waterDrunk.setCountWaterMl(ml);
-        waterDrunk.setDayDrink(waterDrunksForDay);
-        return drunkWaterRepository.save(waterDrunk);
+    public WaterDrink addToDay(DayDrinks dayDrinks, Integer ml, LocalDateTime localDateTime){
+        WaterDrink waterDrink = new WaterDrink();
+        waterDrink.setTime(localDateTime);
+        waterDrink.setCountWaterMl(ml);
+        waterDrink.setDayDrink(dayDrinks);
+        return drinkWaterRepository.save(waterDrink);
     }
 
 
@@ -76,11 +76,11 @@ public class UserService {
     }
 
     public void delete(User user){
-        for(WaterDrunksForDay waterDrunksForDay : user.getCalendarWaterDrunk()){
-            for (WaterDrunk waterDrunk : waterDrunksForDay.getWaterDunks()){
-                drunkWaterRepository.delete(waterDrunk);
+        for(DayDrinks dayDrinks : user.getCalendarWaterDrunk()){
+            for (WaterDrink waterDrink : dayDrinks.getWaterDunks()){
+                drinkWaterRepository.delete(waterDrink);
             }
-            drunkDayRepository.delete(waterDrunksForDay);
+            drinkDayRepository.delete(dayDrinks);
         }
         userRepository.delete(user);
     }

@@ -2,9 +2,9 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunk;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrunksForDay;
+import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrink;
 import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
 public class Hello implements Action {
@@ -29,7 +29,7 @@ public class Hello implements Action {
     }
 
     public String weight(User user){
-        if(user.getWeight()==0){
+        if(user.getWeight()==null){
             return "Вы не указали свой вес! /weight";
         }
         else {
@@ -38,7 +38,7 @@ public class Hello implements Action {
     }
 
     public String height(User user){
-        if(user.getHeight()==0){
+        if(user.getHeight()==null){
             return "Вы не указали свой рост! /height";
         }
         else {
@@ -62,25 +62,25 @@ public class Hello implements Action {
             return "Записи о выпитой воде отсутствуют!";
         }
 
-        WaterDrunksForDay lastDay = user.getCalendarWaterDrunk().getLast();
+        DayDrinks lastDay = user.getCalendarWaterDrunk().getLast();
 
         StringBuilder text = new StringBuilder("Последний день записей: " + lastDay.getDate() + "\n");
         int allml = 0;
-        for (WaterDrunk waterDrunk : lastDay.getWaterDunks()) {
+        for (WaterDrink waterDrink : lastDay.getWaterDunks()) {
             text.append("В ")
-                    .append(getTime(waterDrunk))
+                    .append(getTime(waterDrink))
                     .append(" выпито ")
-                    .append(waterDrunk.getCountWaterMl())
+                    .append(waterDrink.getCountWaterMl())
                     .append(" мл воды\n");
-            allml += waterDrunk.getCountWaterMl();
+            allml += waterDrink.getCountWaterMl();
         }
         text.append("Всего за день выпито ").append(allml).append(" мл жидкости.");
         return text.toString();
     }
 
-    public String getTime(WaterDrunk waterDrunk){
-        return waterDrunk.getTime().getHour() + ":" +
-                waterDrunk.getTime().getMinute() + ":" +
-                waterDrunk.getTime().getSecond();
+    public String getTime(WaterDrink waterDrink){
+        return waterDrink.getTime().getHour() + ":" +
+                waterDrink.getTime().getMinute() + ":" +
+                waterDrink.getTime().getSecond();
     }
 }

@@ -22,14 +22,14 @@ public class User {
     private Boolean sex;
 
     @OneToMany(mappedBy = "userInfo")
-    private List<WaterDrunksForDay> calendarWaterDrunk;
+    private List<DayDrinks> calendarWaterDrunk;
 
     public User(
             Integer id,
             String chatId,
             String username,
             Integer weight,
-            List<WaterDrunksForDay> calendarWaterDrunk
+            List<DayDrinks> calendarWaterDrunk
     ) {
         this.id = id;
         this.chatId = chatId;
@@ -77,7 +77,7 @@ public class User {
         this.weight = weight;
     }
 
-    public List<WaterDrunksForDay> getCalendarWaterDrunk() {
+    public List<DayDrinks> getCalendarWaterDrunk() {
         return calendarWaterDrunk;
     }
 
@@ -97,7 +97,7 @@ public class User {
         this.height = height;
     }
 
-    public void setCalendarWaterDrunk(List<WaterDrunksForDay> calendarWaterDrunk) {
+    public void setCalendarWaterDrunk(List<DayDrinks> calendarWaterDrunk) {
         this.calendarWaterDrunk = calendarWaterDrunk;
     }
 }
