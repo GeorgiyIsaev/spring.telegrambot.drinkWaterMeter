@@ -18,16 +18,13 @@ public class Hello implements Action {
     public SendMessage generateRequest(Update update) {
         String chatId = update.getMessage().getChatId().toString();
         String username = update.getMessage().getFrom().getUserName();
-
-        System.out.println("Извел екаем из ДБ");
         User user = userService.findOrCreate(chatId, username);
+
         String message =user.getUsername() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
         message +=  height(user) +  "\n";
         message +=  weight(user) +  "\n";
         message +=  sex(user) +  "\n";
         message +=  "\n" + calendarWaterDrunk (user);
-
-
         return SendMessage.builder().chatId(chatId).text(message).build();
     }
 

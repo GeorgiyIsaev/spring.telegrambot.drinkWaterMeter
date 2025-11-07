@@ -34,11 +34,9 @@ public class DrinkWaterButton implements Action {
 
     public void drink(User user, LocalDateTime time){
         if(user.getCalendarWaterDrunk().isEmpty()){
-            System.out.println("Список пуст");
             createWaterDrunksForDay(user);
         }
         else if(!user.getCalendarWaterDrunk().getLast().getDate().equals(LocalDate.now())){
-            System.out.println("Сегодня нет");
             createWaterDrunksForDay(user);
         }
         WaterDrunksForDay waterDrunksForDay = user.getCalendarWaterDrunk().getLast();

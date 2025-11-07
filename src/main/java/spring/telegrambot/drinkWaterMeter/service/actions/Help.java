@@ -10,13 +10,13 @@ public class Help implements Action {
         String text =       "/help (хелп, помощь) - отобразить инструкцию для пользователя\n" +
                 "/hello" + " Отобразить информацию о пользователе\n" +
                 "/recommended" + " Показать рекомендации\n" +
+                "/full" + " Показать все записи\n" +
+                "/drunk" + " Выпить воды\n\n" +
+
                 "/weight" + " Изменить вес\n" +
                 "/height" + " Изменить рост\n" +
                 "/sex" + " Указать пол\n" +
                 "/drop" + " Стереть все данные о себе\n" +
-
-                "/drunk" + " Выпить воды\n" +
-
                 "Другие функции пока не добавлены";
 
         return SendMessage.builder().chatId(chatId).text(text).build();

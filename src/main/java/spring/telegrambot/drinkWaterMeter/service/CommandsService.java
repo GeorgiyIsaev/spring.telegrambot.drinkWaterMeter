@@ -27,6 +27,7 @@ public class CommandsService {
         addWeight();
         addDrop();
         addRecommended();
+        addFull();
     }
 
 
@@ -71,7 +72,10 @@ public class CommandsService {
         Drop drop = new Drop();
         actions.put("/drop",drop);
     }
-
+    public void addFull(){
+        Full full = new Full(userService);
+        actions.put("/full",full);
+    }
 
     public Action getAction(String command){
         if(command == null) return null;

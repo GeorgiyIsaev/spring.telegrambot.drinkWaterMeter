@@ -12,6 +12,7 @@ public class DrinkWater implements Action{
     @Override
     public SendMessage generateRequest(Update update) {
         String message = "Сколько воды вы выпили?";
+        message += "(Обычная чайная кружка вмещает 300мл)";
         String chatId = update.getMessage().getChatId().toString();
         List<List<InlineKeyboardButton>> buttons = buttonsGenerator();
 
