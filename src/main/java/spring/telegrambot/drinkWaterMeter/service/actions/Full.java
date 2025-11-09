@@ -2,16 +2,16 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrink;
-import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
-import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
+import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 
 public class Full implements Action {
 
-    private final UserService userService;
-    public Full(UserService userService) {
-        this.userService = userService;
+    private final UserDAO userDao;
+    public Full(UserDAO userDao) {
+        this.userDao = userDao;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class Full implements Action {
         String username = update.getMessage().getFrom().getUserName();
 
 
-        User user = userService.findOrCreate(chatId, username);
+        User user = userDao.findOrCreate(chatId, username);
         String message ="Все записи " + user.getUsername() + " !\n";
         message +=  "\n" + calendarWaterDrunk (user);
 

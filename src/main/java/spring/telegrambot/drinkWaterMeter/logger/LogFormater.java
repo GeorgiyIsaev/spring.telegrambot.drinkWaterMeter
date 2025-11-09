@@ -2,7 +2,7 @@ package spring.telegrambot.drinkWaterMeter.logger;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.data.request.Request;
+import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -5,7 +5,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.service.actions.*;
 import spring.telegrambot.drinkWaterMeter.service.buttons.*;
-import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
+import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -13,10 +13,10 @@ import java.util.TreeMap;
 @Service
 public class ButtonsService {
     private final Map<String, Action> actions;
-    private final UserService userService;
+    private final UserDAO userDao;
 
-    public ButtonsService(UserService userService) {
-        this.userService = userService;
+    public ButtonsService(UserDAO userDao) {
+        this.userDao = userDao;
         this.actions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         fillingInActions();
     }
@@ -30,18 +30,18 @@ public class ButtonsService {
 
     public void addButtonsDrinkWater() {
         for(int ml = 200; ml <= 600; ml+=50 ) {
-            Action drinkWaterButton = new DrinkWaterButton(userService, ml);
+            Action drinkWaterButton = new DrinkWaterButton(userDao, ml);
             actions.put("button_index_" + ml+"ml", drinkWaterButton);
         }
     }
 
     public void addButtonsWeight() {
         for(int kg = 40; kg <= 190; kg+=5 ) {
-            Action weightButton = new WeightButton(userService, kg);
+            Action weightButton = new WeightButton(userDao, kg);
             actions.put("button_weight_" + kg, weightButton);
         }
         for(int cm = 80; cm <= 250; cm+=5 ) {
-            Action heightButton = new HeightButton(userService,  cm);
+            Action heightButton = new HeightButton(userDao,  cm);
             actions.put("button_height_" + cm, heightButton);
         }
     }
@@ -49,14 +49,14 @@ public class ButtonsService {
     public void addButtonsDrop() {
         Action dropButtonNo = new DropButtonNo();
         actions.put("button_drop_no", dropButtonNo);
-        Action dropButtonYes = new DropButtonYes(userService);
+        Action dropButtonYes = new DropButtonYes(userDao);
         actions.put("button_drop_yes", dropButtonYes);
     }
 
     public void addSexChange() {
-        SexButton sexButtonWoman = new SexButton(userService, true);
+        SexButton sexButtonWoman = new SexButton(userDao, true);
         actions.put("button_woman", sexButtonWoman);
-        SexButton sexButtonMan = new SexButton(userService, false);
+        SexButton sexButtonMan = new SexButton(userDao, false);
         actions.put("button_man", sexButtonMan);
     }
 

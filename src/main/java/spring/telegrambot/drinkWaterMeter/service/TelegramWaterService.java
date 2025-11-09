@@ -6,8 +6,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.client.TelegramFeignClient;
-import spring.telegrambot.drinkWaterMeter.data.request.Request;
-import spring.telegrambot.drinkWaterMeter.data.webhook.SetWebhookRequest;
+import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
+import spring.telegrambot.drinkWaterMeter.client.contract.webhook.SetWebhookRequest;
 import spring.telegrambot.drinkWaterMeter.logger.Logger;
 
 @Service

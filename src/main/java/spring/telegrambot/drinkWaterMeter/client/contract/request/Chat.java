@@ -1,4 +1,4 @@
-package spring.telegrambot.drinkWaterMeter.data.request;
+package spring.telegrambot.drinkWaterMeter.client.contract.request;
 
 public record Chat(
         String id,

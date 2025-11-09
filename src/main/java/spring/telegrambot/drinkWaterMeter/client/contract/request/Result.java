@@ -1,4 +1,4 @@
-package spring.telegrambot.drinkWaterMeter.data.request;
+package spring.telegrambot.drinkWaterMeter.client.contract.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

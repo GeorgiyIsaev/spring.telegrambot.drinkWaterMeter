@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.service.actions.*;
-import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
+import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,10 +12,10 @@ import java.util.TreeMap;
 @Service
 public class CommandsService {
     private final Map<String, Action> actions;
-    private final UserService userService;
+    private final UserDAO userDao;
 
-    public CommandsService(UserService userService) {
-        this.userService = userService;
+    public CommandsService(UserDAO userDao) {
+        this.userDao = userDao;
         this.actions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         fillingInActions();
     }
@@ -39,12 +39,12 @@ public class CommandsService {
     }
 
     public void addHello(){
-        Hello hello = new Hello(userService);
+        Hello hello = new Hello(userDao);
         actions.put("/hello",hello);
         actions.put("Привет",hello);
     }
     public void addRecommended(){
-        Recommended recommended = new Recommended(userService);
+        Recommended recommended = new Recommended(userDao);
         actions.put("/recommended",recommended);
         actions.put("Рекомендации",recommended);
     }
@@ -73,7 +73,7 @@ public class CommandsService {
         actions.put("/drop",drop);
     }
     public void addFull(){
-        Full full = new Full(userService);
+        Full full = new Full(userDao);
         actions.put("/full",full);
     }
 

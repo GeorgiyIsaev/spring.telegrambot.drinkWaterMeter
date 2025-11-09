@@ -1,7 +1,7 @@
 package spring.telegrambot.drinkWaterMeter.logger;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.data.request.Request;
+import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
 
 
 public interface Logger  {

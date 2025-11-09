@@ -2,23 +2,23 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
-import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrink;
-import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
+import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 
 public class Hello implements Action {
 
-    private final UserService userService;
-    public Hello(UserService userService) {
-        this.userService = userService;
+    private final UserDAO userDao;
+    public Hello(UserDAO userDao) {
+        this.userDao = userDao;
     }
 
     @Override
     public SendMessage generateRequest(Update update) {
         String chatId = update.getMessage().getChatId().toString();
         String username = update.getMessage().getFrom().getUserName();
-        User user = userService.findOrCreate(chatId, username);
+        User user = userDao.findOrCreate(chatId, username);
 
         String message =user.getUsername() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
         message +=  height(user) +  "\n";

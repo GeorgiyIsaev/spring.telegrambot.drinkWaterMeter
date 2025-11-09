@@ -1,9 +1,10 @@
-package spring.telegrambot.drinkWaterMeter.service.repository;
+package spring.telegrambot.drinkWaterMeter.repository.dao;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import spring.telegrambot.drinkWaterMeter.data.model.user.DayDrinks;
-import spring.telegrambot.drinkWaterMeter.data.model.user.User;
-import spring.telegrambot.drinkWaterMeter.data.model.user.WaterDrink;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 import spring.telegrambot.drinkWaterMeter.repository.DrinkDayRepository;
 import spring.telegrambot.drinkWaterMeter.repository.DrinkWaterRepository;
 import spring.telegrambot.drinkWaterMeter.repository.UserRepository;
@@ -14,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserDAO {
     private final UserRepository userRepository;
     private final DrinkDayRepository drinkDayRepository;
     private final DrinkWaterRepository drinkWaterRepository;
 
-    public UserService(UserRepository userRepository, DrinkDayRepository drinkDayRepository, DrinkWaterRepository drinkWaterRepository) {
+    public UserDAO(UserRepository userRepository, DrinkDayRepository drinkDayRepository, DrinkWaterRepository drinkWaterRepository) {
         this.userRepository = userRepository;
         this.drinkDayRepository = drinkDayRepository;
         this.drinkWaterRepository = drinkWaterRepository;
@@ -75,6 +76,7 @@ public class UserService {
         return save(user);
     }
 
+    @Transactional
     public void delete(User user){
         for(DayDrinks dayDrinks : user.getCalendarWaterDrunk()){
             for (WaterDrink waterDrink : dayDrinks.getWaterDunks()){
@@ -84,5 +86,4 @@ public class UserService {
         }
         userRepository.delete(user);
     }
-
 }

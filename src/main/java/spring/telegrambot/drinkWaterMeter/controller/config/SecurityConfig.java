@@ -1,4 +1,4 @@
-package spring.telegrambot.drinkWaterMeter.config;
+package spring.telegrambot.drinkWaterMeter.controller.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

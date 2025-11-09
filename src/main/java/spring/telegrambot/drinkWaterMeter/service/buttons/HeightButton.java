@@ -2,16 +2,16 @@ package spring.telegrambot.drinkWaterMeter.service.buttons;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.data.model.user.User;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.service.actions.Action;
-import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
+import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 
 public class HeightButton implements Action {
-        private final UserService userService;
+        private final UserDAO userDao;
         private final int cm;
 
-        public HeightButton(UserService userService, int cm) {
-            this.userService = userService;
+        public HeightButton(UserDAO userDao, int cm) {
+            this.userDao = userDao;
             this.cm = cm;
         }
 
@@ -20,7 +20,7 @@ public class HeightButton implements Action {
             String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
             String username = update.getCallbackQuery().getFrom().getUserName();
             String text = "Ваш рост изменен на " + cm + " см";
-            User user = userService.findOrCreate(chatId, username);
+            User user = userDao.findOrCreate(chatId, username);
             User userUpdate =  updateUser(user);
             text += "\n" + userUpdate.getUsername() + ": " + userUpdate.getHeight() + " см.";
             return SendMessage.builder().chatId(chatId).text(text).build();
@@ -28,6 +28,6 @@ public class HeightButton implements Action {
 
     private User updateUser(User user) {
         user.setHeight(cm);
-        return userService.save(user);
+        return userDao.save(user);
     }
 }

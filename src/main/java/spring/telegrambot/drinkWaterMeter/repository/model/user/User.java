@@ -1,4 +1,4 @@
-package spring.telegrambot.drinkWaterMeter.data.model.user;
+package spring.telegrambot.drinkWaterMeter.repository.model.user;
 
 import jakarta.persistence.*;
 

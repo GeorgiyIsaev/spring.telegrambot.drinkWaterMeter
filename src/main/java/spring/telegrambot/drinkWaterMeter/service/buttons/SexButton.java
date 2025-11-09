@@ -2,16 +2,16 @@ package spring.telegrambot.drinkWaterMeter.service.buttons;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import spring.telegrambot.drinkWaterMeter.data.model.user.User;
+import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.service.actions.Action;
-import spring.telegrambot.drinkWaterMeter.service.repository.UserService;
 
 public class SexButton implements Action {
-        private final UserService userService;
+        private final UserDAO userDao;
         private final Boolean isWoman ;
 
-    public SexButton(UserService userService, Boolean isWoman) {
-        this.userService = userService;
+    public SexButton(UserDAO userDao, Boolean isWoman) {
+        this.userDao = userDao;
         this.isWoman = isWoman;
     }
 
@@ -19,7 +19,7 @@ public class SexButton implements Action {
         public SendMessage generateRequest(Update update) {
             String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
             String username = update.getCallbackQuery().getFrom().getUserName();
-            User user = userService.findOrCreate(chatId, username);
+            User user = userDao.findOrCreate(chatId, username);
             User userUpdate =  updateUser(user);
             String sex = userUpdate.getSex() ? "женский" : "мужской";
             String text = "Ваш указали " + sex + " пол.";
@@ -28,6 +28,6 @@ public class SexButton implements Action {
 
     private User updateUser(User user) {
         user.setSex(isWoman);
-        return userService.save(user);
+        return userDao.save(user);
     }
 }
