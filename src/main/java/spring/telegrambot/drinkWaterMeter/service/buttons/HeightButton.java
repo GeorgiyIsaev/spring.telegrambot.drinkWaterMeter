@@ -5,8 +5,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.service.actions.Action;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
 
-public class HeightButton implements Action {
+public class HeightButton implements Button {
         private final UserDAO userDao;
         private final int cm;
 
@@ -15,10 +16,10 @@ public class HeightButton implements Action {
             this.cm = cm;
         }
 
-        @Override
-        public SendMessage generateRequest(Update update) {
-            String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
-            String username = update.getCallbackQuery().getFrom().getUserName();
+    @Override
+    public SendMessage generateRequest(CallbackQuery callbackQuery) {
+        String chatId = callbackQuery.getChatId();
+        String username = callbackQuery.getUsername();
             String text = "Ваш рост изменен на " + cm + " см";
             User user = userDao.findOrCreate(chatId, username);
             User userUpdate =  updateUser(user);

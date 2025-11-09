@@ -6,6 +6,7 @@ import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.service.actions.Action;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class DrinkWaterButton implements Action {
+public class DrinkWaterButton implements Button {
     private final UserDAO userDao;
     private final int ml;
 
@@ -23,17 +24,28 @@ public class DrinkWaterButton implements Action {
     }
 
     @Override
-    public SendMessage generateRequest(Update update) {
-        String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
-        String username = update.getCallbackQuery().getFrom().getUserName();
+    public SendMessage generateRequest(CallbackQuery callbackQuery) {
+        String chatId = callbackQuery.getChatId();
+        String username = callbackQuery.getUsername();
         String text = "Выпил " + ml + " мл воды.";
         User user = userDao.findOrCreate(chatId, username);
-        LocalDateTime time = toLocalDataTime(update);
-        drink(user, time);
+
+        drink(user, callbackQuery.getTime());
         return SendMessage.builder().chatId(chatId).text(text).build();
     }
 
-    public void drink(User user, LocalDateTime time){
+//    @Override
+//    public SendMessage generateRequest(Update update) {
+//        String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
+//        String username = update.getCallbackQuery().getFrom().getUserName();
+//        String text = "Выпил " + ml + " мл воды.";
+//        User user = userDao.findOrCreate(chatId, username);
+//        LocalDateTime time = toLocalDataTime(update);
+//        drink(user, time);
+//        return SendMessage.builder().chatId(chatId).text(text).build();
+//    }
+
+    public void drink(User user, Instant time){
         if(user.getCalendarWaterDrunk().isEmpty()){
             createWaterDrunksForDay(user);
         }
@@ -70,4 +82,5 @@ public class DrinkWaterButton implements Action {
         return ldt;
 
     }
+
 }

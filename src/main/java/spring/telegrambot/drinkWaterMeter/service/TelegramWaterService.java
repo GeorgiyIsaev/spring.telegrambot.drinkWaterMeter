@@ -9,6 +9,8 @@ import spring.telegrambot.drinkWaterMeter.client.TelegramFeignClient;
 import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
 import spring.telegrambot.drinkWaterMeter.client.contract.webhook.SetWebhookRequest;
 import spring.telegrambot.drinkWaterMeter.logger.Logger;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
+import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
 @Service
 public class TelegramWaterService {
@@ -55,13 +57,13 @@ public class TelegramWaterService {
     }
 
 
-    public void updateRouting(Update update) {
-        if(update.hasMessage()){
-            this.replyToMessage(update);
-        } else if (update.hasCallbackQuery()) {
-            this.replyToCallbackQuery(update);
-        }
-    }
+//    public void updateRouting(Update update) {
+//        if(update.hasMessage()){
+//            this.replyToMessage(update);
+//        } else if (update.hasCallbackQuery()) {
+//            this.replyToCallbackQuery(update);
+//        }
+//    }
 
     public void dropButtons(Update update){
         Integer messageId = update.getCallbackQuery().getMessage().getMessageId();
@@ -71,7 +73,7 @@ public class TelegramWaterService {
         System.out.println(requestDelete);
     }
 
-    private void replyToCallbackQuery(Update update) {
+    public void replyToCallbackQuery(Update update) {
         logger.logCallbackQuery(update);
         SendMessage sendMessage = buttonsService.generateRequest(update);
         Request request = telegramFeignClient.sendMessage(sendMessage);
@@ -80,11 +82,17 @@ public class TelegramWaterService {
 
     }
 
-    private void replyToMessage(Update update) {
+    public void replyToMessage(Update update) {
         logger.logMessage(update);
         SendMessage sendMessage = commandsService.generateRequest(update);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);
 
+    }
+
+    public void replyToMessage(CallbackQuery callbackQuery) {
+    }
+
+    public void replyToMessage(Message message) {
     }
 }
