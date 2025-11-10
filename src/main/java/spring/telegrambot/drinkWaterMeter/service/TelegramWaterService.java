@@ -47,52 +47,29 @@ public class TelegramWaterService {
     }
 
 
-
-
-
-    public void sendMessage(String chatId, String text){
-        SendMessage sendMessage = SendMessage.builder().chatId(chatId).text(text).build();
+    public void replyToMessage(Message message) {
+        //logger.logMessage(update);
+        SendMessage sendMessage = commandsService.generateRequest(message);
         Request request = telegramFeignClient.sendMessage(sendMessage);
-        System.out.println("sendMessage: " + request);
+        logger.logRequest(request);
     }
 
-
-//    public void updateRouting(Update update) {
-//        if(update.hasMessage()){
-//            this.replyToMessage(update);
-//        } else if (update.hasCallbackQuery()) {
-//            this.replyToCallbackQuery(update);
-//        }
-//    }
-
-    public void dropButtons(Update update){
-        Integer messageId = update.getCallbackQuery().getMessage().getMessageId();
-        String chatId = update.getCallbackQuery().getMessage().getChatId().toString();
+    public void dropButtons(CallbackQuery callbackQuery){
+        Integer messageId = callbackQuery.getMessageId();
+        String chatId = callbackQuery.getChatId();
         DeleteMessage deleteMessage = DeleteMessage.builder().chatId(chatId).messageId(messageId).build();
         String requestDelete = telegramFeignClient.deleteMessage(deleteMessage);
         System.out.println(requestDelete);
     }
 
-    public void replyToCallbackQuery(Update update) {
-        logger.logCallbackQuery(update);
-        SendMessage sendMessage = buttonsService.generateRequest(update);
+
+    public void replyToCallbackQuery(CallbackQuery callbackQuery) {
+       // logger.logCallbackQuery(update);
+        SendMessage sendMessage = buttonsService.generateRequest(callbackQuery);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);
-        dropButtons(update);
-
+        dropButtons(callbackQuery);
     }
 
-    public void replyToMessage(Update update) {
-        logger.logMessage(update);
-        SendMessage sendMessage = commandsService.generateRequest(update);
-        Request request = telegramFeignClient.sendMessage(sendMessage);
-        logger.logRequest(request);
 
-    }
-
-    public void replyToMessage(CallbackQuery callbackQuery) {
-    }
-
-    public void replyToMessage(Message message) {
-    }
 }

@@ -6,6 +6,7 @@ import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
+import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
 public class Hello implements Action {
 
@@ -15,17 +16,17 @@ public class Hello implements Action {
     }
 
     @Override
-    public SendMessage generateRequest(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
-        String username = update.getMessage().getFrom().getUserName();
+    public SendMessage generateRequest(Message message) {
+        String chatId = message.getChatId();
+        String username = message.getUsername();
         User user = userDao.findOrCreate(chatId, username);
 
-        String message =user.getUsername() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
-        message +=  height(user) +  "\n";
-        message +=  weight(user) +  "\n";
-        message +=  sex(user) +  "\n";
-        message +=  "\n" + calendarWaterDrunk (user);
-        return SendMessage.builder().chatId(chatId).text(message).build();
+        String text =user.getUsername() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
+        text +=  height(user) +  "\n";
+        text +=  weight(user) +  "\n";
+        text +=  sex(user) +  "\n";
+        text +=  "\n" + calendarWaterDrunk (user);
+        return SendMessage.builder().chatId(chatId).text(text).build();
     }
 
     public String weight(User user){

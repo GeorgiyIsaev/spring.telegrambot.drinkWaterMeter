@@ -4,20 +4,21 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Sex implements Action{
     @Override
-    public SendMessage generateRequest(Update update) {
-        String message = "Укажите ваш пол";
-        String chatId = update.getMessage().getChatId().toString();
+    public SendMessage generateRequest(Message message) {
+        String text = "Укажите ваш пол";
+        String chatId = message.getChatId();
         List<List<InlineKeyboardButton>> buttons = buttonsGenerator();
 
         return SendMessage.builder()
                 .chatId(chatId)
-                .text(message)
+                .text(text)
                 .replyMarkup(InlineKeyboardMarkup.builder().keyboard(buttons).build())
                 .build();
     }

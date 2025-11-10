@@ -2,11 +2,12 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
 public class Help implements Action {
     @Override
-    public SendMessage generateRequest(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
+    public SendMessage generateRequest(Message message) {
+        String chatId = message.getChatId();
         String text =       "/help (хелп, помощь) - отобразить инструкцию для пользователя\n" +
                 "/hello" + " Отобразить информацию о пользователе\n" +
                 "/recommended" + " Показать рекомендации\n" +

@@ -6,6 +6,7 @@ import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
+import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
 public class Full implements Action {
 
@@ -15,17 +16,17 @@ public class Full implements Action {
     }
 
     @Override
-    public SendMessage generateRequest(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
-        String username = update.getMessage().getFrom().getUserName();
+    public SendMessage generateRequest(Message message) {
+        String chatId = message.getChatId();
+        String username = message.getUsername();
 
 
         User user = userDao.findOrCreate(chatId, username);
-        String message ="Все записи " + user.getUsername() + " !\n";
-        message +=  "\n" + calendarWaterDrunk (user);
+        String text ="Все записи " + user.getUsername() + " !\n";
+        text +=  "\n" + calendarWaterDrunk (user);
 
 
-        return SendMessage.builder().chatId(chatId).text(message).build();
+        return SendMessage.builder().chatId(chatId).text(text).build();
     }
 
     public String calendarWaterDrunk(User user) {

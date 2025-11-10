@@ -50,7 +50,7 @@ public class TelegramController {
 
         } else if (update.hasCallbackQuery()) {
             CallbackQuery callbackQuery = new CallbackQuery(update);
-            this.telegramService.replyToMessage(callbackQuery);
+            this.telegramService.replyToCallbackQuery(callbackQuery);
 
         }
     }

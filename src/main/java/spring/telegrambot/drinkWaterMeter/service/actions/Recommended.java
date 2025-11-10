@@ -6,6 +6,7 @@ import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
+import spring.telegrambot.drinkWaterMeter.service.update.Message;
 import spring.telegrambot.drinkWaterMeter.service.utils.CalculatingDrinkingNorms;
 
 import java.time.LocalDate;
@@ -18,14 +19,14 @@ public class Recommended  implements Action{
     }
 
     @Override
-    public SendMessage generateRequest(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
-        String username = update.getMessage().getFrom().getUserName();
+    public SendMessage generateRequest(Message message) {
+        String chatId = message.getChatId();
+        String username = message.getUsername();
         User user = userDao.findOrCreate(chatId, username);
 
-        String message = hider() + infoUser(user) + "\n\n" + drunkAllToday(user);
+        String text = hider() + infoUser(user) + "\n\n" + drunkAllToday(user);
 
-        return SendMessage.builder().chatId(chatId).text(message).build();
+        return SendMessage.builder().chatId(chatId).text(text).build();
     }
 
 
