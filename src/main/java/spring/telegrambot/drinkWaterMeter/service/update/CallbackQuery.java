@@ -46,7 +46,7 @@ public class CallbackQuery {
         this.time = time;
     }
 
-    public String getDataCallbackQuery() {
+    public String getData() {
         return dataCallbackQuery;
     }
 
