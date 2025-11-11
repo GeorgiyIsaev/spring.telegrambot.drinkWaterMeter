@@ -23,12 +23,12 @@ public class CommandsService {
 
     private void fillingInActions() {
         addHelp();
-      //  addHello();
+        addHello();
         addDrink();
         addWeight();
         addDrop();
     //    addRecommended();
-     //  addFull();
+        addFull();
     }
 
 
@@ -39,11 +39,11 @@ public class CommandsService {
         actions.put("помощь",help);
     }
 
-//    public void addHello(){
-//        Hello hello = new Hello(userDao);
-//        actions.put("/hello",hello);
-//        actions.put("Привет",hello);
-//    }
+    public void addHello(){
+        Hello hello = new Hello(userDao);
+        actions.put("/hello",hello);
+        actions.put("Привет",hello);
+    }
 //    public void addRecommended(){
 //        Recommended recommended = new Recommended(userDao);
 //        actions.put("/recommended",recommended);
@@ -53,7 +53,7 @@ public class CommandsService {
 
     public void addDrink(){
         DrinkWater drinkWater = new DrinkWater();
-        actions.put("/drunk",drinkWater);
+        actions.put("/drink",drinkWater);
         actions.put("Выпил",drinkWater);
     }
 
@@ -73,10 +73,10 @@ public class CommandsService {
         Drop drop = new Drop();
         actions.put("/drop",drop);
     }
-//    public void addFull(){
-//        Full full = new Full(userDao);
-//        actions.put("/full",full);
-//    }
+    public void addFull(){
+        Full full = new Full(userDao);
+        actions.put("/full",full);
+    }
 
     public Action getAction(String command){
         if(command == null) return null;
