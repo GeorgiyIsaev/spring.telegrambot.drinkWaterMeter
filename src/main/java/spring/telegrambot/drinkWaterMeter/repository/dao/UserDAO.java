@@ -1,20 +1,16 @@
 package spring.telegrambot.drinkWaterMeter.repository.dao;
 
 import jakarta.transaction.Transactional;
-import org.springframework.stereotype.Service;
-import spring.telegrambot.drinkWaterMeter.repository.model.user.DayDrinks;
+import org.springframework.stereotype.Repository;
+
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
-import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
-import spring.telegrambot.drinkWaterMeter.repository.DrinkDayRepository;
+
 import spring.telegrambot.drinkWaterMeter.repository.DrinkWaterRepository;
 import spring.telegrambot.drinkWaterMeter.repository.UserRepository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Repository
 public class UserDAO {
     private final UserRepository userRepository;
     private final DrinkWaterRepository drinkWaterRepository;
@@ -42,7 +38,7 @@ public class UserDAO {
         return user;
     }
 
-    //Изменение
+    //Изменение и добавление данных
     public User save(User user){
         return userRepository.save(user);
     }
@@ -62,9 +58,7 @@ public class UserDAO {
 //        waterDrink.setDayDrink(dayDrinks);
 //        return drinkWaterRepository.save(waterDrink);
 //    }
-
 //
-
 //
 //    @Transactional
 //    public void delete(User user){
