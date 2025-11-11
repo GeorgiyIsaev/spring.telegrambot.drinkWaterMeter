@@ -29,10 +29,10 @@ public class ButtonsService {
     }
 
     public void addButtonsDrinkWater() {
-//        for(int ml = 200; ml <= 600; ml+=50 ) {
-//            Button drinkWaterButton = new DrinkWaterButton(userDao, ml);
-//            button.put("button_index_" + ml+"ml", drinkWaterButton);
-//        }
+        for(int ml = 200; ml <= 600; ml+=50 ) {
+            Button drinkWaterButton = new DrinkWaterButton(userDao, ml);
+            button.put("button_index_" + ml+"ml", drinkWaterButton);
+        }
     }
 
     public void addButtonsWeight() {

@@ -7,7 +7,9 @@ import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 
 import spring.telegrambot.drinkWaterMeter.repository.DrinkWaterRepository;
 import spring.telegrambot.drinkWaterMeter.repository.UserRepository;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 
+import java.time.Instant;
 import java.util.List;
 
 @Repository
@@ -41,6 +43,15 @@ public class UserDAO {
     //Изменение и добавление данных
     public User save(User user){
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public WaterDrink addWaterDrink(User user, Integer ml, Instant time) {
+        WaterDrink waterDrink = new WaterDrink();
+        waterDrink.setTime(time);
+        waterDrink.setCountWaterMl(ml);
+        waterDrink.setUser(user);
+        return drinkWaterRepository.save(waterDrink);
     }
 
 //

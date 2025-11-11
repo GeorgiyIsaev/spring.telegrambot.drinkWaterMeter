@@ -29,6 +29,10 @@
 //        return SendMessage.builder().chatId(chatId).text(text).build();
 //    }
 //
+
+import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
+import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
+
 ////    public String calendarWaterDrunk(User user) {
 ////        if (user.getCalendarWaterDrunk().isEmpty() || user.getCalendarWaterDrunk() == null) {
 ////            return "Записи о выпитой воде отсутствуют!";
@@ -57,4 +61,19 @@
 ////                waterDrink.getTime().getMinute() + ":" +
 ////                waterDrink.getTime().getSecond();
 ////    }
+//}
+
+//private String lastDayInfo(User user) {
+//    List<WaterDrink> waterDrinks = user.getWaterDunks();
+//    List<WaterDrink> lastDay = new ArrayList<>();
+//
+//    long timezone = user.getTimeShift() + 3600;
+//    Instant tempTime = waterDrinks.
+//    for (WaterDrink waterDrink : waterDrinks){
+//        Instant time = waterDrink.getTime().plusSeconds(timezone);
+//
+//        waterDrink.
+//    }
+//
+//
 //}
