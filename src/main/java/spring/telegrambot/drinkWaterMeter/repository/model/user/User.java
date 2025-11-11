@@ -16,33 +16,32 @@ public class User {
     private String username;
     @Column(name = "weight")
     private Integer weight;
+    @Column(name = "time_shift")
+    private Integer timeShift;
     @Column(name = "height")
     private Integer height;
     @Column(name = "sex")
     private Boolean sex;
+//
+//    @OneToMany(mappedBy = "userInfo")
+//    private List<DayDrinks> calendarWaterDrunk;
 
-    @OneToMany(mappedBy = "userInfo")
-    private List<DayDrinks> calendarWaterDrunk;
+    @OneToMany(mappedBy = "user")
+    private List<WaterDrink> waterDunks;
 
-    public User(
-            Integer id,
-            String chatId,
-            String username,
-            Integer weight,
-            List<DayDrinks> calendarWaterDrunk
-    ) {
-        this.id = id;
-        this.chatId = chatId;
-        this.username = username;
-        this.weight = weight;
-        this.calendarWaterDrunk = calendarWaterDrunk;
-    }
 
     public User() {
     }
 
-    public String toString() {
-        return "Пользователь " + username + " Вес: " + weight;
+    public User(Integer id, String chatId, String username, Integer weight, Integer timeShift, Integer height, Boolean sex, List<WaterDrink> waterDunks) {
+        this.id = id;
+        this.chatId = chatId;
+        this.username = username;
+        this.weight = weight;
+        this.timeShift = timeShift;
+        this.height = height;
+        this.sex = sex;
+        this.waterDunks = waterDunks;
     }
 
     public Integer getId() {
@@ -77,16 +76,12 @@ public class User {
         this.weight = weight;
     }
 
-    public List<DayDrinks> getCalendarWaterDrunk() {
-        return calendarWaterDrunk;
+    public Integer getTimeShift() {
+        return timeShift;
     }
 
-    public Boolean getSex() {
-        return sex;
-    }
-
-    public void setSex(Boolean sex) {
-        this.sex = sex;
+    public void setTimeShift(Integer timeShift) {
+        this.timeShift = timeShift;
     }
 
     public Integer getHeight() {
@@ -97,7 +92,19 @@ public class User {
         this.height = height;
     }
 
-    public void setCalendarWaterDrunk(List<DayDrinks> calendarWaterDrunk) {
-        this.calendarWaterDrunk = calendarWaterDrunk;
+    public Boolean getSex() {
+        return sex;
+    }
+
+    public void setSex(Boolean sex) {
+        this.sex = sex;
+    }
+
+    public List<WaterDrink> getWaterDunks() {
+        return waterDunks;
+    }
+
+    public void setWaterDunks(List<WaterDrink> waterDunks) {
+        this.waterDunks = waterDunks;
     }
 }
