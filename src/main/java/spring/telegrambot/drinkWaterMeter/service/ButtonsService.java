@@ -49,8 +49,8 @@ public class ButtonsService {
     public void addButtonsDrop() {
         Button dropButtonNo = new DropButtonNo();
         button.put("button_drop_no", dropButtonNo);
-//        Button dropButtonYes = new DropButtonYes(userDao);
-//        button.put("button_drop_yes", dropButtonYes);
+        Button dropButtonYes = new DropButtonYes(userDao);
+        button.put("button_drop_yes", dropButtonYes);
     }
 
     public void addSexChange() {

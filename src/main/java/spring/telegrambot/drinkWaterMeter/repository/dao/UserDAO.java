@@ -54,31 +54,12 @@ public class UserDAO {
         return drinkWaterRepository.save(waterDrink);
     }
 
-//
-//    public WaterDrink addToDay(DayDrinks dayDrinks, Integer ml){
-//        WaterDrink waterDrink = new WaterDrink();
-//        waterDrink.setTime(LocalDateTime.now());
-//        waterDrink.setCountWaterMl(ml);
-//        waterDrink.setDayDrink(dayDrinks);
-//        return drinkWaterRepository.save(waterDrink);
-//    }
-//    public WaterDrink addToDay(DayDrinks dayDrinks, Integer ml, LocalDateTime localDateTime){
-//        WaterDrink waterDrink = new WaterDrink();
-//        waterDrink.setTime(localDateTime);
-//        waterDrink.setCountWaterMl(ml);
-//        waterDrink.setDayDrink(dayDrinks);
-//        return drinkWaterRepository.save(waterDrink);
-//    }
-//
-//
-//    @Transactional
-//    public void delete(User user){
-//        for(DayDrinks dayDrinks : user.getCalendarWaterDrunk()){
-//            for (WaterDrink waterDrink : dayDrinks.getWaterDunks()){
-//                drinkWaterRepository.delete(waterDrink);
-//            }
-//            drinkDayRepository.delete(dayDrinks);
-//        }
-//        userRepository.delete(user);
-//    }
+    @Transactional
+    public void delete(User user) {
+        for (WaterDrink waterDrink : user.getWaterDunks()) {
+            drinkWaterRepository.delete(waterDrink);
+        }
+
+        userRepository.delete(user);
+    }
 }

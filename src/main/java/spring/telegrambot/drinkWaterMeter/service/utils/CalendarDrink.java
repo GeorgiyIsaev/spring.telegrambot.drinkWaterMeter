@@ -13,6 +13,10 @@ import java.util.List;
 public class CalendarDrink {
 
     public static List<List<WaterDrink>> make(User user){
+        if(user.getWaterDunks() == null){
+             return new ArrayList<>();
+        }
+
         List<WaterDrink> waterDrinks = user.getWaterDunks();
         List<List<WaterDrink>> days = new ArrayList<>();
         List<WaterDrink> day = new ArrayList<>();

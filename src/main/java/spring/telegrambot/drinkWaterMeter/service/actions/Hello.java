@@ -86,13 +86,15 @@ public class Hello implements Action {
             return "Список пуст!";
         }
         String text = "";
+        int countAllDrink = 0;
         for (WaterDrink drink : days.getLast()){
             LocalTime time = LocalTime.ofInstant(drink.getTime().plusSeconds(-3*3600), ZoneOffset.UTC);
             int hour = time.getHour();
             int minute = time.getMinute();
             text += "Выпито: " + drink.getCountWaterMl() + " мл в " +  hour + ":" + minute + ";\n";
-
+            countAllDrink +=drink.getCountWaterMl();
         }
+        text+="Всего за день выпито: " + countAllDrink + " мл воды.";
         return text;
     }
 
