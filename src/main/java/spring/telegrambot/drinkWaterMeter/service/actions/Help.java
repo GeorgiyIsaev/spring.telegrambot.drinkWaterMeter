@@ -12,7 +12,7 @@ public class Help implements Action {
                 "/hello" + " Отобразить информацию о пользователе\n" +
                 "/recommended" + " Показать рекомендации\n" +
                 "/full" + " Показать все записи\n" +
-                "/drunk" + " Выпить воды\n\n" +
+                "/drink" + " Выпить воды\n\n" +
 
                 "/weight" + " Изменить вес\n" +
                 "/height" + " Изменить рост\n" +

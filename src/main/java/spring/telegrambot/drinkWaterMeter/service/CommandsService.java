@@ -27,7 +27,7 @@ public class CommandsService {
         addDrink();
         addWeight();
         addDrop();
-    //    addRecommended();
+        addRecommended();
         addFull();
     }
 
@@ -44,11 +44,11 @@ public class CommandsService {
         actions.put("/hello",hello);
         actions.put("Привет",hello);
     }
-//    public void addRecommended(){
-//        Recommended recommended = new Recommended(userDao);
-//        actions.put("/recommended",recommended);
-//        actions.put("Рекомендации",recommended);
-//    }
+    public void addRecommended(){
+        Recommended recommended = new Recommended(userDao);
+        actions.put("/recommended",recommended);
+        actions.put("Рекомендации",recommended);
+    }
 
 
     public void addDrink(){
