@@ -5,8 +5,11 @@ import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.utils.CalendarDrink;
 
 import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +31,10 @@ public class Hello implements Action {
         text +=  weight(user) +  "\n";
         text +=  sex(user) +  "\n";
         text +=  timeZone(message, user) +  "\n";
-      //  text +=  "\n" + lastDayInfo(user);
+        text +=  "\n" + lastDayInfo(user);
         return SendMessage.builder().chatId(chatId).text(text).build();
     }
+
 
 
     public String weight(User user){
@@ -76,6 +80,21 @@ public class Hello implements Action {
     }
 
 
+    private String lastDayInfo(User user) {
+        List<List<WaterDrink>> days = CalendarDrink.make(user);
+        if(days.isEmpty()){
+            return "Список пуст!";
+        }
+        String text = "";
+        for (WaterDrink drink : days.getLast()){
+            LocalTime time = LocalTime.ofInstant(drink.getTime().plusSeconds(-3*3600), ZoneOffset.UTC);
+            int hour = time.getHour();
+            int minute = time.getMinute();
+            text += "Выпито: " + drink.getCountWaterMl() + " мл в " +  hour + ":" + minute + ";\n";
+
+        }
+        return text;
+    }
 
 
 
