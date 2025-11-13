@@ -40,10 +40,7 @@ public class TimeButton implements Button {
     }
 
     public String getTime(CallbackQuery callbackQuery, User userUpdate){
-            Instant instant = callbackQuery.getTime();
-            System.out.println(instant);
         LocalTime localTime = LocalTime.from(callbackQuery.getTime().atZone(ZoneOffset.UTC));
-        System.out.println(localTime);
         String text = "\"" + (localTime.getHour() + userUpdate.getTimeShift());
         text += ":" + localTime.getMinute() + "\"";
         return text;

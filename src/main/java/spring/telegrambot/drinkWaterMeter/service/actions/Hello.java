@@ -76,7 +76,7 @@ public class Hello implements Action {
         }
         time += user.getTimeShift();
 
-        return "Сейчас: !" + message.getTime() +  " - (UTS " + time + ") /time";
+        return "Сейчас: !" + message.getTime() +  " - (UTC " + time + ") /time";
     }
 
 
