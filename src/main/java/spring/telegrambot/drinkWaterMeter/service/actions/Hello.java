@@ -87,9 +87,11 @@ public class Hello implements Action {
         }
         String text = "";
         int countAllDrink = 0;
+
+        int timeShift = user.getTimeShift();
         for (WaterDrink drink : days.getLast()){
-            LocalTime time = LocalTime.ofInstant(drink.getTime().plusSeconds(-3*3600), ZoneOffset.UTC);
-            int hour = time.getHour();
+            LocalTime time = LocalTime.ofInstant(drink.getTime(), ZoneOffset.UTC);
+            int hour = time.getHour() + timeShift;
             int minute = time.getMinute();
             text += "Выпито: " + drink.getCountWaterMl() + " мл в " +  hour + ":" + minute + ";\n";
             countAllDrink +=drink.getCountWaterMl();
