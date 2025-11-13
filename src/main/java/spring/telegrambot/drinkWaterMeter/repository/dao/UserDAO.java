@@ -30,6 +30,7 @@ public class UserDAO {
         User user = new User();
         user.setChatId(chatId);
         user.setUsername(username);
+        user.setTimeShift(0);
         return save(user);
     }
     public User findOrCreate(String chatId, String username){

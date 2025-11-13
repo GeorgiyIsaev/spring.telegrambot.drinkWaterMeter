@@ -67,6 +67,9 @@ public class CommandsService {
         Sex sex = new Sex();
         actions.put("/sex",sex);
         actions.put("пол",sex);
+
+        Time time = new Time();
+        actions.put("/time",time);
     }
 
     public void addDrop(){

@@ -26,12 +26,20 @@ public class ButtonsService {
         addButtonsWeight();
         addButtonsDrop();
         addSexChange();
+        addButtonsTime();
     }
 
     public void addButtonsDrinkWater() {
         for(int ml = 200; ml <= 600; ml+=50 ) {
             Button drinkWaterButton = new DrinkWaterButton(userDao, ml);
             button.put("button_index_" + ml+"ml", drinkWaterButton);
+        }
+    }
+
+    public void addButtonsTime() {
+        for(int time = -12; time <= 14; time+=1 ) {
+            Button drinkWaterButton = new TimeButton(userDao, time);
+            button.put("button_time_" + time, drinkWaterButton);
         }
     }
 
