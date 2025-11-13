@@ -16,10 +16,6 @@ public class WaterDrink {
     private Instant time;
     @Column(name = "count_water_ml")
     private Integer countWaterMl;
-//    @ManyToOne
-//    @JoinColumn(name = "day_drink_id")
-//    private DayDrinks dayDrink;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

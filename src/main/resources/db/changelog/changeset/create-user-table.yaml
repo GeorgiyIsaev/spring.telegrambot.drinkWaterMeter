@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-user_info
+      author: Georgiy
+      changes:
+        - createTable:
+            tableName: user_info
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: chat_id
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(200)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: weight
+                  type: int
+              - column:
+                  name: height
+                  type: int
+              - column:
+                  name: time_shift
+                  type: int
+              - column:
+                  name: sex
+                  type: boolean

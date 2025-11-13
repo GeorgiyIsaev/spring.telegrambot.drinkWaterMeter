@@ -23,7 +23,7 @@ public class WeightButton implements Button {
         String text = "Ваш вес изменен на " + kg + " кг";
         User user = userDao.findOrCreate(chatId, username);
         User userUpdate =  updateUser(user);
-        text += "\n" + userUpdate;
+        text += "\n" + userUpdate.getWeight();
         return SendMessage.builder().chatId(chatId).text(text).build();
     }
 

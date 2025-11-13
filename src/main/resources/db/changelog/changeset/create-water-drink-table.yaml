@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-water-drink
+      author: Georgiy
+      changes:
+        - createTable:
+            tableName: water_drink_recording
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: fixation_time
+                  type: timestamp(6) with time zone
+              - column:
+                  name: count_water_ml
+                  type: int
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: user_id_fk
+                    referencedTableName: user_info
+                    referencedColumnNames: id

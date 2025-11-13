@@ -22,10 +22,6 @@ public class User {
     private Integer height;
     @Column(name = "sex")
     private Boolean sex;
-//
-//    @OneToMany(mappedBy = "userInfo")
-//    private List<DayDrinks> calendarWaterDrunk;
-
     @OneToMany(mappedBy = "user")
     private List<WaterDrink> waterDunks;
 
