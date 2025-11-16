@@ -5,8 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 
-import spring.telegrambot.drinkWaterMeter.repository.DrinkWaterRepository;
-import spring.telegrambot.drinkWaterMeter.repository.UserRepository;
+import spring.telegrambot.drinkWaterMeter.repository.jpa.user.DrinkWaterRepository;
+import spring.telegrambot.drinkWaterMeter.repository.jpa.user.UserRepository;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 
 import java.time.Instant;
