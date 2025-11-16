@@ -61,4 +61,15 @@ public class CallbackQuery {
     public void setMessageId(Integer messageId) {
         this.messageId = messageId;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "chatId='" + chatId + '\'' +
+                ", username='" + username + '\'' +
+                ", time=" + time +
+                ", messageId=" + messageId +
+                ", dataCallbackQuery='" + dataCallbackQuery + '\'' +
+                '}';
+    }
 }

@@ -9,6 +9,11 @@ import spring.telegrambot.drinkWaterMeter.repository.model.log.Log;
 import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
 import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
+
 @Service
 public class LoggerService implements Logger{
     private final LogDAO logDAO;
@@ -23,35 +28,39 @@ public class LoggerService implements Logger{
 
     public void print(Log log){
         if (isConsole) {
-            System.out.println("{logger.isConsole} " + isConsole);
-        }
-        else {
-            System.out.println("{logger.isConsole} " + isConsole);
+            PrintLog.print(log);
         }
     }
 
+
+
     @Override
     public void logMessage(Message message) {
-
+        Log log = logDAO.save(message.getTime(),"Message", message.toString());
+        print(log);
     }
 
     @Override
     public void logCallbackQuery(CallbackQuery callbackQuery) {
-
+        Log log = logDAO.save(callbackQuery.getTime(),"CallbackQuery", callbackQuery.toString());
+        print(log);
     }
 
     @Override
     public void logRequest(Request request) {
-
+        Log log = logDAO.save(Instant.now(),"Request", request.toString());
+        print(log);
     }
 
     @Override
     public void logException(String info, Exception e) {
-
+        Log log = logDAO.save(Instant.now(),"Request", e.getMessage());
+        print(log);
     }
 
     @Override
     public void logResponse(String response) {
-
+        Log log = logDAO.save(Instant.now(),"Request", response);
+        print(log);
     }
 }
