@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-logger_info
+      author: Georgiy
+      changes:
+        - createTable:
+            tableName: logger
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: time
+                  type: timestamp(6) with time zone
+                  constraints:
+                    nullable: false
+              - column:
+                  name: event
+                  type: varchar(30)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: information
+                  type: varchar(250)
+                  constraints:
+                    nullable: false
