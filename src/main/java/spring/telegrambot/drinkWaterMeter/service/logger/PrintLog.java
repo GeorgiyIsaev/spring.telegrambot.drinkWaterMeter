@@ -18,7 +18,7 @@ public class PrintLog {
         System.out.println(text);
     }
 
-    public static String FORMAT_PRINT = "%-20s %-10s %-5s";
+    public static String FORMAT_PRINT = "%-19s %-16s %-1s";
     public static String transform(String time, String type, String information){
         return  String.format(FORMAT_PRINT, time, type, information);
     }
@@ -27,8 +27,8 @@ public class PrintLog {
     public static String dateTime(Instant instant){
         int offset = 3;
         LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneOffset.ofHours(offset));
-        String data = dateTime.getYear() + "-" + dateTime.getMonth() + "-" + dateTime.getDayOfMonth();
+        String data = dateTime.getYear() + "-" + dateTime.getMonthValue() + "-" + dateTime.getDayOfMonth();
         String time = dateTime.getHour() + ":" + dateTime.getMinute();
-        return data + " '" + time + "'";
+        return data + "-'" + time + "'";
     }
 }

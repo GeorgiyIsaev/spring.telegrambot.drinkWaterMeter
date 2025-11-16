@@ -38,7 +38,6 @@ public class TelegramController {
 
     @PostMapping("/")
     public void postMethod(@RequestBody Update update) {
-
         updateRouting(update);
     }
 

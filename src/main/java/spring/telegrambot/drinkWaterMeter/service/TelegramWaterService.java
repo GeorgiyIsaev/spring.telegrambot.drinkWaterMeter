@@ -1,10 +1,10 @@
 package spring.telegrambot.drinkWaterMeter.service;
 
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.client.TelegramFeignClient;
 import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
 import spring.telegrambot.drinkWaterMeter.client.contract.webhook.SetWebhookRequest;
@@ -50,7 +50,7 @@ public class TelegramWaterService {
 
 
     public void replyToMessage(Message message) {
-        //logger.logMessage(update);
+        logger.logMessage(message);
         SendMessage sendMessage = commandsService.generateRequest(message);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);
@@ -60,13 +60,19 @@ public class TelegramWaterService {
         Integer messageId = callbackQuery.getMessageId();
         String chatId = callbackQuery.getChatId();
         DeleteMessage deleteMessage = DeleteMessage.builder().chatId(chatId).messageId(messageId).build();
-        String requestDelete = telegramFeignClient.deleteMessage(deleteMessage);
-        System.out.println(requestDelete);
+        try {
+            String requestDelete = telegramFeignClient.deleteMessage(deleteMessage);
+            logger.logDelete(requestDelete);
+        }
+        catch (FeignException e){
+            logger.logException("Ошибка удаления кнопки!", e);
+        }
+
     }
 
 
     public void replyToCallbackQuery(CallbackQuery callbackQuery) {
-       // logger.logCallbackQuery(update);
+        logger.logCallbackQuery(callbackQuery);
         SendMessage sendMessage = buttonsService.generateRequest(callbackQuery);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);

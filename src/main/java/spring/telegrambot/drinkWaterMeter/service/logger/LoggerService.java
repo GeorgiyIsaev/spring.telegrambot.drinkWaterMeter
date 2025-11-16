@@ -10,9 +10,6 @@ import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
 import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
 
 @Service
 public class LoggerService implements Logger{
@@ -23,7 +20,6 @@ public class LoggerService implements Logger{
                          @Value("${logger.isConsole}") boolean isConsole) {
         this.logDAO = logDAO;
         this.isConsole = isConsole;
-        print(new Log());
     }
 
     public void print(Log log){
@@ -31,8 +27,6 @@ public class LoggerService implements Logger{
             PrintLog.print(log);
         }
     }
-
-
 
     @Override
     public void logMessage(Message message) {
@@ -61,6 +55,12 @@ public class LoggerService implements Logger{
     @Override
     public void logResponse(String response) {
         Log log = logDAO.save(Instant.now(),"Request", response);
+        print(log);
+    }
+
+    @Override
+    public void logDelete(String request) {
+        Log log = logDAO.save(Instant.now(),"Delete", request);
         print(log);
     }
 }

@@ -12,4 +12,6 @@ public interface Logger {
      void logRequest(Request request);
      void logException(String info, Exception e);
      void logResponse(String response);
+
+     void logDelete(String requestDelete);
 }
