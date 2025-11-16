@@ -8,7 +8,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.client.TelegramFeignClient;
 import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
 import spring.telegrambot.drinkWaterMeter.client.contract.webhook.SetWebhookRequest;
-import spring.telegrambot.drinkWaterMeter.logger.Logger;
+
+import spring.telegrambot.drinkWaterMeter.service.logger.Logger;
+import spring.telegrambot.drinkWaterMeter.service.logger.LoggerService;
 import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
 import spring.telegrambot.drinkWaterMeter.service.update.Message;
 
@@ -23,7 +25,7 @@ public class TelegramWaterService {
     public TelegramWaterService(
             @Value("${telegrambot.urlHostTunnel}") String urlServer,
             TelegramFeignClient telegramFeignClient,
-            Logger logger,
+            LoggerService logger,
             ButtonsService buttonsService,
             CommandsService commandsService) {
         System.out.println("[" + urlServer + "]");

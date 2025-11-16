@@ -6,7 +6,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "logger")
-public class Logger {
+public class Log {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,10 +18,10 @@ public class Logger {
     @Column(name = "information")
     private String information;
 
-    public Logger() {
+    public Log() {
     }
 
-    public Logger(Integer id, Instant time, String event, String information) {
+    public Log(Integer id, Instant time, String event, String information) {
         this.id = id;
         this.time = time;
         this.event = event;
