@@ -15,7 +15,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: time
-                  type: timestamp(6) with time zone
+                  type: timestamp
                   constraints:
                     nullable: false
               - column:
@@ -25,6 +25,6 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: information
-                  type: varchar(250)
+                  type: varchar(1000)
                   constraints:
                     nullable: false
