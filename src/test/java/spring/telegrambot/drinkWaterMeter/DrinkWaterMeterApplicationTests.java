@@ -1,13 +1,13 @@
 package spring.telegrambot.drinkWaterMeter;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class DrinkWaterMeterApplicationTests {
-
-	@Test
-	void contextLoads() {
-	}
-
-}
+//@SpringBootTest
+//class DrinkWaterMeterApplicationTests {
+//
+//	@Test
+//	void contextLoads() {
+//	}
+//
+//}

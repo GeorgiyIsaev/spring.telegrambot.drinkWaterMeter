@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop-fk-water-drink-table
+      author: Georgiy
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: water_drink_recording
+            baseTableSchemaName: public
+            constraintName: user_id_fk

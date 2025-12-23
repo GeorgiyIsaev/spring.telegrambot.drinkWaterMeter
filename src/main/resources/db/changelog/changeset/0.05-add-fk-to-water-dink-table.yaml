@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-fk-to-water-dink-table
+      author: Georgiy
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: water_drink_recording
+            constraintName: user_id_fk_cascade
+            deferrable: true
+            initiallyDeferred: true
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableCatalogName: user_info
+            referencedTableName: water_drink_recording
+            referencedTableSchemaName: public
+            validate: true
