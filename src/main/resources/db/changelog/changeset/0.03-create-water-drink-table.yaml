@@ -15,7 +15,7 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: fixation_time
-                  type: timestamp(6) with time zone
+                  type: timestamp
               - column:
                   name: count_water_ml
                   type: int
