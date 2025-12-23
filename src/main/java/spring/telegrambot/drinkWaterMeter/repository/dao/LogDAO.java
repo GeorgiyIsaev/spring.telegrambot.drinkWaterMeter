@@ -25,17 +25,18 @@ public class LogDAO {
 
 
     public Log save(Instant time, String event, String information){
+        int MAX_COUNT_INFORMATION = 1000;
         Log log = new Log();
         log.setTime(time);
         log.setEvent(event);
+        if(information.length() > MAX_COUNT_INFORMATION){
+            information = information.substring(0, MAX_COUNT_INFORMATION);
+        }
+
         log.setInformation(information);
         return this.save(log);
     }
     public Log save(String event, String information){
-        Log log = new Log();
-        log.setTime(Instant.now());
-        log.setEvent(event);
-        log.setInformation(information);
-        return this.save(log);
+        return save(Instant.now(), event, information);
     }
 }
