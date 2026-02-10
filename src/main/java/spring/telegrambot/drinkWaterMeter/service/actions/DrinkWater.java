@@ -1,20 +1,19 @@
 package spring.telegrambot.drinkWaterMeter.service.actions;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DrinkWater implements Action{
     @Override
-    public SendMessage generateRequest(Message message) {
+    public SendMessage generateRequest(MessageContract messageContract) {
         String text = "Сколько воды вы выпили?";
         text += "(Обычная чайная кружка вмещает 300мл)";
-        String chatId = message.getChatId();
+        String chatId = messageContract.getChatId();
         List<List<InlineKeyboardButton>> buttons = buttonsGenerator();
 
         return SendMessage.builder()

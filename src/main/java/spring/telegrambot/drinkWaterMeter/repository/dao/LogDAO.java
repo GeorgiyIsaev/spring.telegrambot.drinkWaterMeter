@@ -29,6 +29,7 @@ public class LogDAO {
         Log log = new Log();
         log.setTime(time);
         log.setEvent(event);
+        if(information==null) return null;
         if(information.length() > MAX_COUNT_INFORMATION){
             information = information.substring(0, MAX_COUNT_INFORMATION);
         }

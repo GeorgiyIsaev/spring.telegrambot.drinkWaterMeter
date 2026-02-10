@@ -2,10 +2,9 @@ package spring.telegrambot.drinkWaterMeter.service;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.service.actions.*;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -86,14 +85,14 @@ public class CommandsService {
         return actions.get(command.toLowerCase());
     }
 
-    public SendMessage generateRequest(Message message){
-        String command = message.getText();
+    public SendMessage generateRequest(MessageContract messageContract){
+        String command = messageContract.getText();
         Action action = getAction(command);
         if (action == null){
-            String chatId = message.getChatId();
+            String chatId = messageContract.getChatId();
             String text = "Команда "+ command + " не найдена";
             return SendMessage.builder().chatId(chatId).text(text).build();
         }
-        return action.generateRequest(message);
+        return action.generateRequest(messageContract);
     }
 }

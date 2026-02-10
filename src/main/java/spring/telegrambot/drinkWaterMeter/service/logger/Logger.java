@@ -1,13 +1,13 @@
 package spring.telegrambot.drinkWaterMeter.service.logger;
 
 import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
-import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQueryContract;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 
 
 public interface Logger {
-     void logMessage(Message message);
-     void logCallbackQuery(CallbackQuery callbackQuery);
+     void logMessage(MessageContract messageContract);
+     void logCallbackQuery(CallbackQueryContract callbackQueryContract);
 
      void logRequest(Request request);
      void logException(String info, Exception e);

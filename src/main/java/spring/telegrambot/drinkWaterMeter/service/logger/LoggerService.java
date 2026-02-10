@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import spring.telegrambot.drinkWaterMeter.client.contract.request.Request;
 import spring.telegrambot.drinkWaterMeter.repository.dao.LogDAO;
 import spring.telegrambot.drinkWaterMeter.repository.model.log.Log;
-import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQueryContract;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 
 import java.time.Instant;
 
@@ -29,14 +29,14 @@ public class LoggerService implements Logger{
     }
 
     @Override
-    public void logMessage(Message message) {
-        Log log = logDAO.save(message.getTime(),"Message", message.toString());
+    public void logMessage(MessageContract messageContract) {
+        Log log = logDAO.save(messageContract.getTime(),"Message", messageContract.toString());
         print(log);
     }
 
     @Override
-    public void logCallbackQuery(CallbackQuery callbackQuery) {
-        Log log = logDAO.save(callbackQuery.getTime(),"CallbackQuery", callbackQuery.toString());
+    public void logCallbackQuery(CallbackQueryContract callbackQueryContract) {
+        Log log = logDAO.save(callbackQueryContract.getTime(),"CallbackQuery", callbackQueryContract.toString());
         print(log);
     }
 

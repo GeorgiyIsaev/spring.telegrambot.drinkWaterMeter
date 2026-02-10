@@ -3,11 +3,9 @@ package spring.telegrambot.drinkWaterMeter.service.buttons;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
-import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQueryContract;
 
-import java.time.Instant;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 public class TimeButton implements Button {
@@ -20,15 +18,15 @@ public class TimeButton implements Button {
         }
 
     @Override
-    public SendMessage generateRequest(CallbackQuery callbackQuery) {
-        String chatId = callbackQuery.getChatId();
-        String username = callbackQuery.getUsername();
+    public SendMessage generateRequest(CallbackQueryContract callbackQueryContract) {
+        String chatId = callbackQueryContract.getChatId();
+        String username = callbackQueryContract.getUsername();
 
 
         User user = userDao.findOrCreate(chatId, username);
         User userUpdate = updateUser(user);
         String text = headerMessage();
-        text += "Сейчас: " + getTime(callbackQuery, userUpdate);
+        text += "Сейчас: " + getTime(callbackQueryContract, userUpdate);
         return SendMessage.builder().chatId(chatId).text(text).build();
     }
 
@@ -39,8 +37,8 @@ public class TimeButton implements Button {
         return text;
     }
 
-    public String getTime(CallbackQuery callbackQuery, User userUpdate){
-        LocalTime localTime = LocalTime.from(callbackQuery.getTime().atZone(ZoneOffset.UTC));
+    public String getTime(CallbackQueryContract callbackQueryContract, User userUpdate){
+        LocalTime localTime = LocalTime.from(callbackQueryContract.getTime().atZone(ZoneOffset.UTC));
         String text = "\"" + (localTime.getHour() + userUpdate.getTimeShift());
         text += ":" + localTime.getMinute() + "\"";
         return text;

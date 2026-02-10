@@ -3,16 +3,16 @@ package spring.telegrambot.drinkWaterMeter.service.actions;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Time implements Action{
     @Override
-    public SendMessage generateRequest(Message message) {
+    public SendMessage generateRequest(MessageContract messageContract) {
         String text = "Укажите ваш часовой пояс";
-        String chatId = message.getChatId();
+        String chatId = messageContract.getChatId();
         List<List<InlineKeyboardButton>> buttons = buttonsGenerator();
 
         return SendMessage.builder()

@@ -2,10 +2,9 @@ package spring.telegrambot.drinkWaterMeter.service;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import spring.telegrambot.drinkWaterMeter.service.actions.*;
 import spring.telegrambot.drinkWaterMeter.service.buttons.*;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
-import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQueryContract;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -76,14 +75,14 @@ public class ButtonsService {
         return button.get(command.toLowerCase());
     }
 
-    public SendMessage generateRequest(CallbackQuery callbackQuery){
-        String dataButton = callbackQuery.getData();
+    public SendMessage generateRequest(CallbackQueryContract callbackQueryContract){
+        String dataButton = callbackQueryContract.getData();
         Button action = getAction(dataButton);
         if (action == null){
-            String chatId = callbackQuery.getChatId();
+            String chatId = callbackQueryContract.getChatId();
             String text = "Кнопка "+ dataButton + " не реализованна!";
             return SendMessage.builder().chatId(chatId).text(text).build();
         }
-        return action.generateRequest(callbackQuery);
+        return action.generateRequest(callbackQueryContract);
     }
 }

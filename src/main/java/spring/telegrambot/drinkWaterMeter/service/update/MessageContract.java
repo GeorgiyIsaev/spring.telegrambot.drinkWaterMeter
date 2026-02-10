@@ -4,7 +4,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.time.Instant;
 
-public class Message {
+public class MessageContract {
     private String chatId;
     private String username;
     private Instant time;
@@ -12,9 +12,9 @@ public class Message {
     private String text;
 
 
-    public Message() {
+    public MessageContract() {
     }
-    public Message(Update update) {
+    public MessageContract(Update update) {
         this.chatId = update.getMessage().getChatId().toString();
         this.username = update.getMessage().getFrom().getUserName();
         this.time = Instant.ofEpochSecond(update.getMessage().getDate());

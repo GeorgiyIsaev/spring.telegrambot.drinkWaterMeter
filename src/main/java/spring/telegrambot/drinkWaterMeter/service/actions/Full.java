@@ -4,7 +4,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 import spring.telegrambot.drinkWaterMeter.service.utils.CalendarDrink;
 
 import java.time.*;
@@ -18,9 +18,9 @@ public class Full implements Action {
     }
 
     @Override
-    public SendMessage generateRequest(Message message) {
-        String chatId = message.getChatId();
-        String username = message.getUsername();
+    public SendMessage generateRequest(MessageContract messageContract) {
+        String chatId = messageContract.getChatId();
+        String username = messageContract.getUsername();
 
         User user = userDao.findOrCreate(chatId, username);
         String text ="Все записи " + user.getUsername() + " !\n";

@@ -1,6 +1,7 @@
 package spring.telegrambot.drinkWaterMeter.repository.dao;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
 
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
@@ -43,11 +44,13 @@ public class UserDAO {
 
     //Изменение и добавление данных
     public User save(User user){
+        if(user == null) throw new NullPointerException();
         return userRepository.save(user);
     }
 
     @Transactional
-    public WaterDrink addWaterDrink(User user, Integer ml, Instant time) {
+    public WaterDrink addWaterDrink(@NotNull User user, Integer ml, Instant time) {
+        if(user == null) throw new NullPointerException();
         WaterDrink waterDrink = new WaterDrink();
         waterDrink.setTime(time);
         waterDrink.setCountWaterMl(ml);
@@ -57,10 +60,11 @@ public class UserDAO {
 
     @Transactional
     public void delete(User user) {
-        for (WaterDrink waterDrink : user.getWaterDunks()) {
-            drinkWaterRepository.delete(waterDrink);
+        if(user.getWaterDunks() != null) {
+            for (WaterDrink waterDrink : user.getWaterDunks()) {
+                drinkWaterRepository.delete(waterDrink);
+            }
         }
-
         userRepository.delete(user);
     }
 }

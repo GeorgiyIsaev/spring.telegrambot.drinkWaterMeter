@@ -27,6 +27,7 @@ public class User {
 
 
     public User() {
+        this.timeShift = 0;
     }
 
     public User(Integer id, String chatId, String username, Integer weight, Integer timeShift, Integer height, Boolean sex, List<WaterDrink> waterDunks) {

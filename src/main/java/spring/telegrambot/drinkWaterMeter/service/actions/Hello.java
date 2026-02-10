@@ -4,13 +4,11 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 import spring.telegrambot.drinkWaterMeter.service.utils.CalendarDrink;
 
-import java.time.Instant;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Hello implements Action {
@@ -21,16 +19,16 @@ public class Hello implements Action {
     }
 
     @Override
-    public SendMessage generateRequest(Message message) {
-        String chatId = message.getChatId();
-        String username = message.getUsername();
+    public SendMessage generateRequest(MessageContract messageContract) {
+        String chatId = messageContract.getChatId();
+        String username = messageContract.getUsername();
         User user = userDao.findOrCreate(chatId, username);
 
         String text =user.getUsername() + " добро пожаловать в чат id = " + user.getChatId() + ".\n";
         text +=  height(user) +  "\n";
         text +=  weight(user) +  "\n";
         text +=  sex(user) +  "\n";
-        text +=  timeZone(message, user) +  "\n";
+        text +=  timeZone(messageContract, user) +  "\n";
         text +=  "\n" + lastDayInfo(user);
         return SendMessage.builder().chatId(chatId).text(text).build();
     }
@@ -66,7 +64,7 @@ public class Hello implements Action {
         }
     }
 
-    private String timeZone(Message message, User user) {
+    private String timeZone(MessageContract messageContract, User user) {
         String time = "";
         if(user.getTimeShift() == null){
             user.setTimeShift(0);
@@ -76,7 +74,7 @@ public class Hello implements Action {
         }
         time += user.getTimeShift();
 
-        return "Сейчас: !" + message.getTime() +  " - (UTC " + time + ") /time";
+        return "Сейчас: !" + messageContract.getTime() +  " - (UTC " + time + ") /time";
     }
 
 

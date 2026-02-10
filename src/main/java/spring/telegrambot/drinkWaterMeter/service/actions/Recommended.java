@@ -1,17 +1,13 @@
 package spring.telegrambot.drinkWaterMeter.service.actions;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.User;
 import spring.telegrambot.drinkWaterMeter.repository.model.user.WaterDrink;
 import spring.telegrambot.drinkWaterMeter.repository.dao.UserDAO;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 import spring.telegrambot.drinkWaterMeter.service.utils.CalculatingDrinkingNorms;
 import spring.telegrambot.drinkWaterMeter.service.utils.CalendarDrink;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneOffset;
 import java.util.List;
 
 public class Recommended  implements Action{
@@ -22,9 +18,9 @@ public class Recommended  implements Action{
     }
 
     @Override
-    public SendMessage generateRequest(Message message) {
-        String chatId = message.getChatId();
-        String username = message.getUsername();
+    public SendMessage generateRequest(MessageContract messageContract) {
+        String chatId = messageContract.getChatId();
+        String username = messageContract.getUsername();
         User user = userDao.findOrCreate(chatId, username);
 
         String text = hider() + infoUser(user) + "\n\n" + drunkAllToday(user);

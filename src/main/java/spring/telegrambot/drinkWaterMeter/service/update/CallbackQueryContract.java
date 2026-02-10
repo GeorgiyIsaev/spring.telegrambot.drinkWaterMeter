@@ -4,17 +4,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.time.Instant;
 
-public class CallbackQuery {
+public class CallbackQueryContract {
     private String chatId;
     private String username;
     private Instant time;
     private Integer messageId;
     private String dataCallbackQuery;
 
-    public CallbackQuery() {
+    public CallbackQueryContract() {
     }
 
-    public CallbackQuery(Update update) {
+    public CallbackQueryContract(Update update) {
         this.chatId = update.getCallbackQuery().getMessage().getChatId().toString();
         this.username = update.getCallbackQuery().getFrom().getUserName();
         this.time = Instant.ofEpochSecond(update.getCallbackQuery().getMessage().getDate());

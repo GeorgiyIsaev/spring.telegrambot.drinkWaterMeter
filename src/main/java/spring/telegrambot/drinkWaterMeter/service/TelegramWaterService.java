@@ -11,8 +11,8 @@ import spring.telegrambot.drinkWaterMeter.client.contract.webhook.SetWebhookRequ
 
 import spring.telegrambot.drinkWaterMeter.service.logger.Logger;
 import spring.telegrambot.drinkWaterMeter.service.logger.LoggerService;
-import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQueryContract;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 
 @Service
 public class TelegramWaterService {
@@ -49,16 +49,16 @@ public class TelegramWaterService {
     }
 
 
-    public void replyToMessage(Message message) {
-        logger.logMessage(message);
-        SendMessage sendMessage = commandsService.generateRequest(message);
+    public void replyToMessage(MessageContract messageContract) {
+        logger.logMessage(messageContract);
+        SendMessage sendMessage = commandsService.generateRequest(messageContract);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);
     }
 
-    public void dropButtons(CallbackQuery callbackQuery){
-        Integer messageId = callbackQuery.getMessageId();
-        String chatId = callbackQuery.getChatId();
+    public void dropButtons(CallbackQueryContract callbackQueryContract){
+        Integer messageId = callbackQueryContract.getMessageId();
+        String chatId = callbackQueryContract.getChatId();
         DeleteMessage deleteMessage = DeleteMessage.builder().chatId(chatId).messageId(messageId).build();
         try {
             String requestDelete = telegramFeignClient.deleteMessage(deleteMessage);
@@ -71,12 +71,12 @@ public class TelegramWaterService {
     }
 
 
-    public void replyToCallbackQuery(CallbackQuery callbackQuery) {
-        logger.logCallbackQuery(callbackQuery);
-        SendMessage sendMessage = buttonsService.generateRequest(callbackQuery);
+    public void replyToCallbackQuery(CallbackQueryContract callbackQueryContract) {
+        logger.logCallbackQuery(callbackQueryContract);
+        SendMessage sendMessage = buttonsService.generateRequest(callbackQueryContract);
         Request request = telegramFeignClient.sendMessage(sendMessage);
         logger.logRequest(request);
-        dropButtons(callbackQuery);
+        dropButtons(callbackQueryContract);
     }
 
 

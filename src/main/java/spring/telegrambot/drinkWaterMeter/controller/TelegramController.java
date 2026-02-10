@@ -6,10 +6,8 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import spring.telegrambot.drinkWaterMeter.service.TelegramWaterService;
-import spring.telegrambot.drinkWaterMeter.service.update.CallbackQuery;
-import spring.telegrambot.drinkWaterMeter.service.update.Message;
-
-import java.time.Instant;
+import spring.telegrambot.drinkWaterMeter.service.update.CallbackQueryContract;
+import spring.telegrambot.drinkWaterMeter.service.update.MessageContract;
 
 
 @RestController
@@ -38,18 +36,21 @@ public class TelegramController {
 
     @PostMapping("/")
     public void postMethod(@RequestBody Update update) {
+        if(update == null){
+            return;
+        }
         updateRouting(update);
     }
 
 
     public void updateRouting(Update update) {
         if(update.hasMessage()){
-            Message message = new Message(update);
-            this.telegramService.replyToMessage(message);
+            MessageContract messageContract = new MessageContract(update);
+            this.telegramService.replyToMessage(messageContract);
 
         } else if (update.hasCallbackQuery()) {
-            CallbackQuery callbackQuery = new CallbackQuery(update);
-            this.telegramService.replyToCallbackQuery(callbackQuery);
+            CallbackQueryContract callbackQueryContract = new CallbackQueryContract(update);
+            this.telegramService.replyToCallbackQuery(callbackQueryContract);
 
         }
     }
